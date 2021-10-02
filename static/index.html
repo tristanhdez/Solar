@@ -5,10 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solar</title>
+    <link rel="stylesheet" href="/static/css/index.css" />
 </head>
 <body>
-<h1>Let's go!</h1>
+    <div class="header-con">
+        <img class="robot" src="/static/images/character/SolarV1.jpeg" alt="Robot">
+        <h1>Solar</h1>
+    </div>
+    <div id="container" class="container">
+        <div class="bg-chat">
+            <div id="chat" class="chat">
+                <div id="messages" class="messages"></div>
+                <input id="userQuestion" type="text" placeholder="Escribe un mensaje"/>
+            </div>
+        </div>
+    </div>
 
+<!--
+<h1 id="solarAnswer">Hi!</h1>
+<input id="userQuestion" type="text" required="required">
+-->
 </body>
 <script src="../src/index.js"></script>
+<script src="../src/responses.js"></script>
 </html>
