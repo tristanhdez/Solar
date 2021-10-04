@@ -50,13 +50,13 @@ function addToChat(questionValue, answer){
     let userDiv = document.createElement("div");
     userDiv.id = "user";
     userDiv.className = "response";
-    userDiv.innerHTML = `<span>${questionValue}</span><img src="/static/images/character/user_icon_fish.png" alt="Icon" height="50px" width="50px">`;
+    userDiv.innerHTML = `<span>${questionValue}</span><img src="../static/images/character/user_icon_fish.png" alt="Icon" height="50px" width="50px">`;
     messagesContainer.appendChild(userDiv);
     let botDiv = document.createElement("div");
     let botImg = document.createElement("img");
     let botText = document.createElement("span");
     botDiv.id = "bot";
-    botImg.src = "/static/images/character/solar_icon.png";
+    botImg.src = "../static/images/character/solar_icon.png";
     botImg.className = "avatar";
     botDiv.className = "bot response";
     botText.innerText = "Escribiendo...";
