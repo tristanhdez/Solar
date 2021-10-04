@@ -5,6 +5,7 @@ var knowledge = {
     "comoestas":"Estoy contento de estar contigo",
     "cualeselreglamentodelaescuela": "En un momento te paso el reglamento",
     "quienesmitutor": "Tu tutor es:",
+    "":""
 };
 
 

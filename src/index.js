@@ -3,7 +3,6 @@ const btn = document.getElementById("btn");
 const input = document.getElementById("userQuestion");
 const messagesContainer = document.getElementById("messages");
 let answer;
-var count;
 
 var knowledge = {
     "hola":"¡Hola! Soy Solar, un gusto conocerte.",
