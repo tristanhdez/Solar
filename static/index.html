@@ -4,28 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../static/css/index.css" rel="stylesheet" type="text/css" id="theme_css">
+
     <title>Solar</title>
-    <link rel="stylesheet" href="/static/css/index.css" />
 </head>
 <body>
-    <div class="header-con">
-        <img class="robot" src="/static/images/character/SolarV1.jpeg" alt="Robot">
-        <h1>Solar</h1>
-    </div>
-    <div id="container" class="container">
-        <div class="bg-chat">
-            <div id="chat" class="chat">
-                <div id="messages" class="messages"></div>
-                <input id="userQuestion" type="text" placeholder="Escribe un mensaje"/>
-            </div>
+
+<div class="header-con">
+
+    <img class="solar" src="../static/images/character/solar_icon_head.png" alt="solar">
+    <h2>● Solar está en línea</h2>
+    <button id="buttonID">Change Theme</button>
+</div>
+
+<div id="container" class="container">
+    <div class="bg-chat">
+        <div id="chat" class="chat">
+            <div id="messages" class="messages"></div>
+            <input id="userQuestion" type="text" placeholder="Escribe un mensaje"/>
+            <button type="button" id="btns">Enviar</button>
         </div>
     </div>
+</div>
 
-<!--
-<h1 id="solarAnswer">Hi!</h1>
-<input id="userQuestion" type="text" required="required">
--->
 </body>
 <script src="../src/index.js"></script>
-<script src="../src/responses.js"></script>
+<!--<script src="../src/responses.js"></script>-->
 </html>

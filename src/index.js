@@ -3,6 +3,7 @@ const btn = document.getElementById("btn");
 const input = document.getElementById("userQuestion");
 const messagesContainer = document.getElementById("messages");
 let answer;
+var count;
 
 var knowledge = {
     "hola":"¡Hola! Soy Solar, un gusto conocerte.",
@@ -12,7 +13,6 @@ var knowledge = {
     "becas": "Las becas que puedes tomar son las siguientes",
     "convocatorias":"Las convocatorias se abren el próximo...",
     "talleres":"Los talleres existentes son...",
-    "":"",
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -50,13 +50,13 @@ function addToChat(questionValue, answer){
     let userDiv = document.createElement("div");
     userDiv.id = "user";
     userDiv.className = "response";
-    userDiv.innerHTML = `<span>${questionValue}</span><img src="/static/images/character/User_Icon.png" alt="Robot cartoon" height="20px" width="20px">`;
+    userDiv.innerHTML = `<span>${questionValue}</span><img src="/static/images/character/user_icon_fish.png" alt="Icon" height="50px" width="50px">`;
     messagesContainer.appendChild(userDiv);
     let botDiv = document.createElement("div");
     let botImg = document.createElement("img");
     let botText = document.createElement("span");
     botDiv.id = "bot";
-    botImg.src = "/static/images/character/SolarV1.jpeg";
+    botImg.src = "/static/images/character/solar_icon.png";
     botImg.className = "avatar";
     botDiv.className = "bot response";
     botText.innerText = "Escribiendo...";
@@ -70,3 +70,9 @@ function addToChat(questionValue, answer){
         botText.innerText = `${answer}`;
     },200)
 }
+
+
+//Change theme
+document.getElementById('buttonID').onclick = function () {
+    document.getElementById('theme_css').href = '../static/css/index_dark.css';
+};
