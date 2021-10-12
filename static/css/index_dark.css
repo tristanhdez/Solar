@@ -1,3 +1,4 @@
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 *{
   box-sizing: border-box;
@@ -7,7 +8,7 @@ html{
   height: 60%;
 }
 
-body{
+body{ /*body's style*/
     font-family: 'Poppins', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -39,41 +40,46 @@ span{
     height: 65px;
 }
 
-.solar{
+.solar{ /*image icon solar*/
     width: 60px;
     height: 50px;
 }
 
+.bg-chat{
+   width: 85%;
+   margin: auto;
+}
 .chat{
-    width: auto;
+    width:auto;
     height: 500px;
-    position: relative;
 }
 
-input[type=text]{
-    width:88%;
+input[type=text]{ /*anwsers's textbox style*/
+    margin: 10px;
+    width:60%;
     box-sizing: border-box;
     padding: 10px;
-    margin-top: 5px;
+    border: #7EC8E3 1px solid;
     border-radius: 5px;
-    margin-left: 14px;
-    background-color: #65BA87;
+    margin-left: 14%;
+    background-color: #1B2E3C;
+    
 }
 
 input:focus{
-    border: 4px solid #719FB8;
-    color: black;
+    border: 4px solid #AFD8f2;
+    color: white;
 }
 
-button#btns{
-    color: black;
+button#btns{ /*send button*/   
+    color: blac;
     font-family: 'Poppins', sans-serif;
-    background-color: #AFD8F2;
+    background-color: #65BA87;
     padding: 5px;
     border: none;
     text-align: center;
     margin-top: 5px;
-    width:120px;
+    width:100px;
     height: 30px;
 }
 
@@ -86,12 +92,12 @@ button#btns{
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-    height: 90%;
-    width: 98%;
+    height: 100%;
+    width: 75%;
     padding: 15px;
-    margin: 15px;
+    margin: auto;
     border-radius: 10px;
-    border: 4px solid #B4F8C8;
+    border: none;
 }
 
 #bot{
@@ -104,7 +110,6 @@ button#btns{
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;
-    font-size: #175B0D;
     color: black;
 }
 
@@ -113,18 +118,14 @@ button#btns{
     color: black;
 }
 
-.bot span{
+.bot span{ /*style for the bot's message box*/
     border-radius: 10px 10px 10px 0;
     margin-left: 4px;
+    background-color: #AFD8F2;
 }
 
 .avatar{
     height: 50px;
-}
-
-span{
-    background-color: #AFD8F2;
-    color: black;
 }
 
 img{
@@ -137,10 +138,70 @@ img{
     height: 30px;
 }
 
-#user span{
+#user span{ /*style and color for the user message box*/
+    
     border-radius: 10px 10px 0px 10px;
     margin-right: 4px;
+    background-color: #B4F8C8;
 }
+
+.button{
+      float: right;
+      margin-block-end: auto;
+}
+
+/*style for item class*/
+.items{
+    margin: center;
+    color: white;
+}
+#item1{
+    float:left;
+    align-items: center;
+    width:80px;
+}
+#logoudg{
+    width:75px;
+}
+#item2{
+    float:left;
+    margin-top: 5px;
+    text-align: left;
+    width:60%;
+    font-size:11px;
+    font-display: center;
+}
+#item3{
+    text-align: center;
+    font-family: monospace;
+    font-size:unset;
+    float: right;
+    margin-bottom:16px;
+    margin-top: 30px;
+}
+
+.icons{
+    float:left;
+    margin-right: 5px;
+}
+.buttonNV{ /*CLASS for the buttons navbar style*/
+    color:white;
+    padding:10px;
+    margin: 5px;
+    border-left:none;
+    border-bottom: none;
+    border-top: none;
+    border-right: #AFD8F2 3px solid; 
+    text-align: center;
+    background-color: transparent;
+    font-size: 16px;
+}
+
+.img#iconKW{
+    
+    src: url(//static/images/icons/iconskey\(dark\).png);
+}
+
 
 /* Mobile
 
