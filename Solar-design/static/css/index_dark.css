@@ -1,0 +1,261 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+*{
+box-sizing: border-box;
+font-family: 'Poppins', sans-serif;
+font-weight: bold;
+}
+
+html{
+height: 100%;
+}
+
+body{ /*body's style*/
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+background-color:#181c18;
+height: 100%;
+margin: 0;
+}
+
+span {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    bottom: 70px;
+}
+
+.bg-chat{
+    margin-top: -40px;
+    width: 900px;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-con{
+    color: #9578d3;
+    background-color:#181c18;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 5px;
+    height: 65px;
+}
+
+.solar{ /*image icon solar*/
+    width: 60px;
+    height: 50px;
+}
+
+.chat {
+    height:450px;
+    width:inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} 
+
+input[type=text]{ /*Answers's textbox style*/
+    padding: 10px; 
+    margin-right: auto;
+    border-radius: 10px;
+    background-color: transparent;
+    border: #279112 2px solid;
+    width: 85%;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+input:focus{
+    outline: none;
+}
+
+button#btns{ /*send button*/   
+    color: white;
+    margin-left: auto;
+    margin-top: -41px;
+    background-color: #279112;
+    color: black;
+    padding: 5px;
+    border: none;
+    width:100px;
+    height: 40px;
+}
+
+.messages{
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 90%;
+    width: 100%;
+    background-image: url(../images/wallpaper/wallpaper_dark.jpg);
+    background-position-y: -200px;
+    background-position-x: -120px;
+    padding: 15px;
+    margin: 15px;
+    border-radius: 10px;
+    border: #279112  2px solid;
+}
+
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #00ce7c;
+    border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(118, 131, 121);
+}
+
+#bot {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+#user{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 14px;
+    margin-bottom: 12px;
+}
+
+.bot {
+font-family: 'Poppins', sans-serif;
+color: black;
+}
+
+.bot span{
+border-radius: 10px 10px 10px 0;
+margin-left: 4px;
+}
+
+.avatar {
+    height: 50px;
+}
+
+span{
+    background-color: #181c18; 
+    color: #ffffff;
+}
+
+img{
+    border-radius: 50%;
+}
+
+.response {
+    display: flex;
+    align-items: center;
+    height: 25px;
+}
+
+#user span{
+    border-radius: 10px 10px 0px 10px;
+    margin-right: 4px;
+}
+
+.container2{
+    position: fixed;
+    left: 10px;  
+    bottom: 5px;  
+    right: 10px;   
+    width: 95%;    
+}
+
+.items{ /*STYLE for the class items*/
+    margin: center;
+}
+
+#information{
+    color: #9578d3;
+}
+
+#item1{
+    float:left;
+    align-items: center;
+    width:60px;
+}
+
+#logoudg{
+    width:50px;
+    margin-top:39px;
+    margin-left: 2px;
+}
+
+#item2{
+    float:left;
+    margin-top: 30px;
+    text-align: left;
+    width:60%;
+    font-size:11px;
+    font-display: center;
+}
+
+#item3{
+    text-align: center;
+    font-family: monospace;
+    font-size:unset;
+    float: right;
+    margin-bottom:16px;
+    margin-top: 30px;
+}
+
+.icons{
+    float:left;
+    margin-right: 20px;
+    margin-top: -4px;
+}
+
+.buttonNV{ /*CLASS for the buttons navbar style*/
+    margin-top: 30px;
+    text-align: center;
+    background-color: transparent;
+    font-size: 12px;
+    cursor: pointer;
+    border: none;
+    color: #9578d3;
+}
+
+#buttonKW{
+    background-image:url(/static/images/icons/iconskey.png) no-repeat;
+}   
+
+
+/* Mobile */
+
+@media only screen and (max-width: 980px) {
+.container {
+        flex-direction: column; 
+        justify-content: flex-start;
+    }
+    .chat {
+        width: 75vw;
+        margin: 10vw;
+    }
+}
