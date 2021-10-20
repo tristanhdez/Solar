@@ -12,7 +12,7 @@ body {
     height: 100vh;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(41, 36, 36, 0.7)), url('../images/wallpaper/wallpapers_light.jpg');
+     background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('../images/wallpaper/wallpaper_dark.jpg');
     background-size: cover;
     background-position: center;
 }
@@ -50,7 +50,7 @@ body {
     transform: translateX(-50%);
     height: 0.8rem;
     width: 13rem;
-    background: #68BB5C;
+    background: #65BA87;
     border-radius: 1rem;
     clip-path: polygon(0 0, 0% 100%, 100% 0);
 }
@@ -88,7 +88,7 @@ input::placeholder {
     color: white;
     opacity: 0.8;
   }
-
+<!--
 .forgot-pass {
     margin-top: 0.4rem;
     position: relative;
@@ -105,7 +105,7 @@ input::placeholder {
 }
 
 .forgot-pass a:hover {
-    color: #68BB5C;
+    color: #65BA87;
 }
 
 .button-area {
@@ -130,7 +130,8 @@ button {
     cursor: pointer;
     border: 2px solid transparent;
     border-radius: 2rem;
-    background: #68BB5C;
+    border-color: white;
+    background: #65BA87;
     transition: all 0.3s ease;
 }
 
@@ -147,4 +148,10 @@ button:hover {
     bottom: -15px;  
     right: 15px;   
     width: 100%;    
+}
+
+img{
+  height: 100px; 
+  width: 100px; 
+  border-radius: 20px ;
 }
