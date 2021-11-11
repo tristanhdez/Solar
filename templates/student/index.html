@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href= "{{ url_for('static',filename='styles/index_dark.css') }}" rel="stylesheet" type="text/css" id="theme_css">
+    <link rel="icon" href="../static/images/character/solar_icon.png">
+    <script src="{{ url_for('static', filename='src/jquery.min.js') }}"></script>
+    <title>Solar</title>
+</head>
+<body>
+
+<div class="header-con">
+    <img class="solar" src="../static/images/character/solar_icon_head.png" alt="solar">
+    <h2>● Solar está en línea</h2>
+</div>
+
+<div id="container" class="container">
+<div class="bg-chat">
+    <div id="chat" class="chat">
+        <div id="messages" class="messages"></div>
+            <input id="userQuestion" type="text" placeholder="Escribe un mensaje" style="border-top: none; border-left: none; border-right: none;"/>
+            <button type="button" id="btns">Enviar</button>
+    </div>
+</div>
+</div>
+<div class="container2">
+    <div class="items" id="item1">
+        <a href="http://www.cutonala.udg.mx/" target="_blank">
+            <img id="logoudg" src="../static/images/icons/udg-logo.png">
+        </a>
+    </div>
+    <div class="items" id="item2">
+       <p id="information">
+            CENTRO UNIVERSITARIO DE TONALÁ -
+            Campus CUTonalá <br>
+            Av. Nuevo Periférico No. 555 Ejido San José Tateposco, C.P. 45425, Tonalá Jalisco, México<br>
+            Teléfono: +52 (33) 20 00 23 00 Ext. 64007 y 64044
+        </p>
+    </div>
+   <div class="items" id="item3">
+        <button type="button" class="buttonNV" id="buttonKW">
+            <img class="icons" id="iconkw" src="../static/images/icons/iconskey.png">
+            Palabras Clave
+        </button>
+         <button type="button" class="buttonNV" id="buttonID">
+            <img  class="icons" id="icontc"src="../static/images/icons/icon theme.png">
+            Cambiar Tema
+        </button>
+    </div>
+</div>
+
+</body>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='src/index.js') }}"></script>
+</html>

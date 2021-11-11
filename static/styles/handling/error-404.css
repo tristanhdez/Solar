@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
+@media (min-width: 360px){
+body{ /*body's style*/
+    font-family: 'Poppins', sans-serif;
+    background-color:#1D405C;
+}
+.title{
+position: absolute;
+width: 94px;
+height: 15px;
+left: 125px;
+top: 120px;
+font-family: 'Poppins', sans-serif;
+font-style: normal;
+font-weight: normal;
+font-size: 36px;
+line-height: 42px;
+color: #719FB8;
+}
+.solar{
+position: absolute;
+width: 51px;
+height: 45px;
+left: 135px;
+top: 15px;
+}
+.line1{
+position: absolute;
+width: 150px;
+left: 248px;
+top: 185px;
+opacity: 0.8;
+}
+.line2{
+position: absolute;
+width: 120px;
+left: 0px;
+top: 185px; 
+opacity: 0.8;
+}
+.h1{
+position: absolute;
+width: 350px;
+height: 23px;
+left: 35px;
+top: 240px;
+font-weight: bold;
+font-size: 14px;
+line-height: 23px;
+color: #AFD8F2;
+}
+.h3{
+position: absolute;
+text-align: center;
+width: 350px;
+height: 23px;
+left: 5px;
+top: 300px;
+font-weight: bold;
+font-size: 12px;
+line-height: 23px;
+color: #777777;
+}
+.return{
+position: absolute;
+font-family: 'Poppins', sans-serif;
+color: white;
+font-weight: bold;
+background-color: #65BA87;
+font-size: 16px;
+width: 87px;
+height: 30px;
+left: 138px;
+top: 460px;
+}
+}
+
+@media (min-width: 768px){
+body{ /*body's style*/
+    font-family: 'Poppins', sans-serif;
+    background-color:#1D405C;
+}
+.title{
+position: absolute;
+width: 94px;
+height: 15px;
+left: 355px;
+top: 120px;
+font-family: 'Poppins', sans-serif;
+font-style: normal;
+font-weight: normal;
+font-size: 36px;
+line-height: 42px;
+color: #719FB8;
+}
+.solar{
+position: absolute;
+width: 51px;
+height: 45px;
+left: 365px;
+top: 15px;
+}
+.line1{
+position: absolute;
+width: 330px;
+left: 478px;
+top: 185px;
+opacity: 0.8;
+}
+.line2{
+position: absolute;
+width: 350px;
+left: 0px;
+top: 185px; 
+opacity: 0.8;
+}
+.h1{
+position: absolute;
+width: 450px;
+height: 23px;
+left: 200px;
+top: 240px;
+font-weight: bold;
+font-size: 20px;
+line-height: 23px;
+color: #AFD8F2;
+}
+.h3{
+position: absolute;
+text-align: center;
+width: 450px;
+height: 23px;
+left: 190px;
+top: 300px;
+font-weight: bold;
+font-size: 20px;
+line-height: 23px;
+color: #777777;
+}
+.return{
+position: absolute;
+font-family: 'Poppins', sans-serif;
+color: white;
+font-weight: bold;
+background-color: #65BA87;
+font-size: 16px;
+width: 87px;
+height: 30px;
+left: 360px;
+top: 460px;
+}
+}
+
+@media (min-width: 1200px){
+body{ /*body's style*/
+    font-family: 'Poppins', sans-serif;
+    background-color:#1D405C;
+}
+.title{
+position: absolute;
+width: 94px;
+height: 15px;
+left: 600px;
+top: 120px;
+font-family: 'Poppins', sans-serif;
+font-style: normal;
+font-weight: normal;
+font-size: 36px;
+line-height: 42px;
+color: #719FB8;
+}
+.solar{
+position: absolute;
+width: 51px;
+height: 45px;
+left: 615px;
+top: 15px;
+}
+.line1{
+position: absolute;
+width: 614px;
+left: 750px;
+top: 185px;
+opacity: 0.8;
+}
+.line2{
+position: absolute;
+width: 570px;
+left: 0px;
+top: 185px; 
+opacity: 0.8;
+}
+.h1{
+position: absolute;
+width: 450px;
+height: 23px;
+left: 450px;
+top: 240px;
+font-weight: bold;
+font-size: 20px;
+line-height: 23px;
+color: #AFD8F2;
+}
+.h3{
+position: absolute;
+text-align: center;
+width: 450px;
+height: 23px;
+left: 435px;
+top: 300px;
+font-weight: bold;
+font-size: 20px;
+line-height: 23px;
+color: #777777;
+}
+.return{
+position: absolute;
+font-family: 'Poppins', sans-serif;
+color: white;
+font-weight: bold;
+background-color: #65BA87;
+font-size: 16px;
+width: 87px;
+height: 30px;
+left: 620px;
+top: 460px;
+}
+}

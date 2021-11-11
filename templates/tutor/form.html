@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static',filename='styles/form.css') }}" rel="stylesheet" type="text/css" id="theme_css">
+    <title>Form</title>
+</head>
+<body>
+
+    <div class="topnav">
+        <img src="../../static/images/character/solar_icon.png">
+        <a class="active" href="/new-question">Agregar Pregunta</a>
+        <a href="/tutors">Tutores</a>
+        <a href="/students">Estudiantes</a>
+        <a href="/form">Preguntas</a>
+      </div>
+    <table class="content-table" align="center">
+        <thead>
+            <tr>
+                <th>Pregunta</th>
+                <th style="width: 450px;">Respuesta</th>
+                <th>Palabra Clave</th>
+                <th style="width: 100px;">Etapa</th>
+                <th style="width: 100px;">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for value in data %}
+            <tr>
+                <td>{{value[1]}}</td>
+                <td>{{value[2]}}</td>
+                <td style="text-align: center; height: 60px;">{{value[3]}}</td>
+                <td style="text-align: center;">{{value[4]}}</td>
+                <td style="text-align: center;">
+                    <a href="/edit-question/{{value[0]}}" class="btn">Editar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

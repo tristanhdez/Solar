@@ -1,0 +1,34 @@
+<TITLE>
+    Formulario preguntas
+    </TITLE>
+    <HEAD>
+      <link href= "{{ url_for('static',filename='styles/edit_question.css') }}" rel="stylesheet" type="text/css" id="theme_css">
+    </HEAD>
+    <BODY>
+
+    <H1>¡Edita una pregunta!</H1>
+    <BR>
+
+    {% for value in data %}
+    <FORM method="post" action="/update" enctype="multipart/form-data">
+        <img class="solar" src="../../static/images/character/solar_icon_head.png" style="height: 120px; width: 120px;">
+        <input type="hidden" name="id" value="{{value[0]}}">
+        <p>Pregunta <input type="text" class="preg" name="pregunta" value="{{value[1]}}" size="50"style="height: 35px;"></p>
+        <p>Respuesta <input type="text" class="resp" name="respuesta" value="{{value[2]}}" size="50" style="height: 35px;"></p>
+        <p>Palabra Clave <input type="text" class="resp" name="keyword" value="{{value[3]}}" size="50" style="height: 35px;"></p>
+        <p>Etapa <input type="text" class="resp" name="stage" value="{{value[4]}}" size="50" style="height: 35px;"></p>
+        <BR>
+    <p>Etapa
+    <select name="etapa" class="etapa">
+      <option value ="1">Inicial</option>
+      <option value ="2">Media</option>
+      <option value ="3">Final</option>
+    </select>
+    </p>
+    <BR>
+    <BR>
+        <a href="formulario.php"> <button type="submit" name="editar" class="editar">Editar</button> </a>
+    </FORM>
+    {% endfor %}
+</BODY>
+</HTML>
