@@ -57,14 +57,6 @@ function talk(value){
     .replace(/\s+/g,"") //replace whitespaces.
     .replace(/[\u0300-\u036f]/g, "") //replace accents.
     .replace(/[!@#$%^&*?¿,.;:]/g,""); //replace invalid characters.
-    /*if(question in knowledge){
-        answer = knowledge[question];
-        addToChat(questionValue, answer);
-    }else{
-        answer = "Lo siento, no te entendí";
-        addToChat(question, answer);
-    }*/
-    console.log(data, normalData);
     getResponse(data, normalData);
 }
 

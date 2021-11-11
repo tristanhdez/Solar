@@ -27,6 +27,7 @@ def login():
 def master_login():
     return render_template('tutor/login.html')
 
+
 @app.route('/suggest')
 def suggest():
     return render_template('student/suggest.html')
@@ -47,22 +48,33 @@ def error_update():
 def error_save():
     return render_template('handling/error/error-save.html')
 
-@app.route('/error-404')
-def error_404():
-    return render_template('handling/error/error-404.html')
+#Handling Errors
+
+@app.errorhandler(400)
+def handle_bad_request(e):
+    return render_template('handling/error/error-400.html'), 400
+
+@app.errorhandler(404)
+def not_found(self):
+    return render_template('handling/error/error-404.html'), 404
+
+'''
+@app.route('/error-500')
+def error_500():
+    return render_template('handling/error/error-500.html')
+
+@app.route('/error-400')
+def error_400():
+    return render_template('handling/error/error-400.html')
+'''
+
+@app.errorhandler(500)
+def internal_error(error):
+    return render_template('handling/error/error-404.html'), 500
 
 @app.route('/error-form')
 def error_form():
     return render_template('handling/error/error-form.html')
-
-@app.route('/error-login-student')
-def error_login_student():
-    return render_template('handling/error/error-login-student.html')
-
-@app.route('/error-login-master')
-def error_login_master():
-    return render_template('handling/error/error-login-master.html')
-
 
 @app.route('/tutors')
 def tutors():
@@ -153,7 +165,7 @@ def get():
     if userText == "tutores":
         connection = mysql.connect()
         cursor=connection.cursor()
-        cursor.execute("SELECT alumnos.nombre, tutores.nombre AS tutor FROM alumnos INNER JOIN tutores ON alumnos.id_tutor = tutores.id_tutor;")
+        cursor.execute("SELECT * FROM tutores;")
         connection.commit()
         data = cursor.fetchall()
         result = " ".join(str(x) for x in data)
@@ -205,7 +217,7 @@ def verify_student():
         result = result.replace("(","").replace(")","").replace(","," ").replace(" ","")
         if studentCode == result:       
             return redirect('/')
-    return redirect('/error-login-student')
+    return render_template('handling/error/error-login-student.html')
 
 @app.route('/verify-master', methods=['POST'])
 def verify_master():
@@ -213,7 +225,7 @@ def verify_master():
     if pwd == '123' and request.method == 'POST':
         return redirect('/form')
     else:
-        return redirect('/error-login-master')
+        return render_template('handling/error/error-login-master.html')
 
 if __name__== '__main__':
     app.run(debug=True)
