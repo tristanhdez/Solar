@@ -16,7 +16,8 @@ app.config['MYSQL_DATABASE_PASSWORD']=''
 app.config['MYSQL_DATABASE_DB']='tutorias'
 mysql.init_app(app)
 
-@app.route('/')
+@app.route('/solar')
+@app.route('/chatbot')
 def index():
     try:
         if 'studentCode' in session:
@@ -25,11 +26,16 @@ def index():
             return render_template('student/index.html')
     except KeyError as e:
         print(e)
-        return "Error"
+        return str("Error")
+    return str("Error")
 
 @app.route('/login')
 def login():
     return render_template('student/login.html')
+
+@app.route('/')
+def home():
+    return render_template('home.html')
 
 @app.route('/master-login')
 def master_login():
@@ -43,11 +49,11 @@ def new_question():
     except KeyError:
         return "Error"
 
-
+'''
 @app.route('/suggest')
 def suggest():
     return render_template('student/suggest.html')
-'''
+
 @app.route('/updated')
 def updated():
     return render_template('handling/sucess/updated.html')
@@ -126,12 +132,31 @@ def edit_tutor(id_tutor,id_career,id_student):
         print(e)
         return "Error"
 
+@app.route('/edit-students/<int:id_student>/<int:id_career>/<int:id_tutor>/')
+def edit_students(id_student,id_career,id_tutor):
+    try: 
+        if session['pwd'] != session:
+            try:
+                connection = mysql.connect()
+                cursor = connection.cursor()
+                cursor.execute("SELECT alumnos.id_alumno, alumnos.nombre, alumnos.correo, alumnos.codigo, carreras.id_carrera, carreras.nombre AS carreras, tutores.id_tutor, tutores.nombre AS tutor FROM alumnos INNER JOIN carreras ON alumnos.id_carrera = carreras.id_carrera INNER JOIN tutores ON alumnos.id_tutor = tutores.id_tutor WHERE alumnos.id_alumno=%s AND carreras.id_carrera=%s AND tutores.id_tutor=%s",(id_student,id_career,id_tutor))
+                data = cursor.fetchall()
+                connection.commit()
+                return render_template('tutor/edit-students.html', data=data)
+            except Exception as e:
+                print(e)
+                return redirect('/error-form')
+    except KeyError as e:
+        print(e)
+        return "Error"
+    return "Error"
+
 @app.route('/students')
 def students():
     try: 
         if session['pwd'] != session:
             try:
-                sql = "SELECT alumnos.id_alumno, alumnos.nombre, alumnos.correo, alumnos.codigo, carreras.nombre AS carrera, tutores.nombre AS tutor FROM alumnos INNER JOIN carreras ON alumnos.id_carrera = carreras.id_carrera INNER JOIN tutores ON alumnos.id_tutor = tutores.id_tutor;";
+                sql = "SELECT alumnos.id_alumno, alumnos.nombre, alumnos.correo, alumnos.codigo, carreras.id_carrera, carreras.nombre AS carreras, tutores.id_tutor, tutores.nombre AS tutor FROM alumnos INNER JOIN carreras ON alumnos.id_carrera = carreras.id_carrera INNER JOIN tutores ON alumnos.id_tutor = tutores.id_tutor;";
                 connection= mysql.connect()
                 cursor = connection.cursor()
                 cursor.execute(sql)
@@ -143,6 +168,7 @@ def students():
     except KeyError as e:
         print(e)
         return "Error"
+    return "Error"
 
 @app.route('/form')
 def form():
@@ -209,7 +235,6 @@ def update():
         print(e)
         return "Error"
 
-
 @app.route('/update-tutor', methods=['POST'])
 def update_tutor():
     try:
@@ -238,6 +263,39 @@ def update_tutor():
     except KeyError as e:
         print(e)
         return "Error"
+    return "Error"
+
+@app.route('/update-students', methods=['POST'])
+def update_students():
+    try:
+        if session['pwd'] != session:
+            try:
+                id_student= request.form['id_student']
+                id_career= request.form['id_career']
+                id_tutor= request.form['id_tutor']
+                name_student = request.form['name_student']
+                email_student = request.form['email_student']
+                code_student = request.form['code_student']
+                career_student = request.form['career_student']
+                tutor_name = request.form['tutor_name']
+                if id_student and id_tutor and id_career and name_student and email_student and code_student and career_student and tutor_name and request.method == 'POST':
+                    sql = "UPDATE `alumnos` SET `nombre` = %s, `correo` = %s, `codigo` = %s, `id_carrera` = %s, `id_tutor` =%s WHERE alumnos.id_alumno =%s;"
+                    data =(name_student,email_student,code_student,id_career,id_tutor,id_student)
+                    connection = mysql.connect()
+                    cursor = connection.cursor()
+                    cursor.execute(sql,data)
+                    connection.commit()
+                    row = cursor.fetchone()
+                    return render_template('handling/sucess/updated.html')
+                else:
+                    return render_template('handling/error/error-update.html')
+            except Exception as e:
+                print(e)
+    except KeyError as e:
+        print(e)
+        return "Error"
+    return "Error"
+
 #Chatbot
 @app.route('/get')
 def get():
@@ -301,17 +359,19 @@ def verify_student():
         result = " ".join(str(x) for x in data)
         result = result.replace("(","").replace(")","").replace(","," ").replace(" ","")
         if studentCode == result:
-            app.permanent_session_lifetime = timedelta(minutes=5)
+            session.permanent = True
+            app.permanent_session_lifetime = timedelta(minutes=1)
             session['studentCode'] = studentCode
-            return redirect('/')
+            return redirect('/solar')
     return render_template('handling/error/error-login-student.html')
 
 @app.route('/verify-master', methods=['POST'])
 def verify_master():
     pwd = request.form['pwd']
     if request.method == 'POST' and pwd == '123':
-        app.permanent_session_lifetime = timedelta(minutes=1)
         session['pwd'] = pwd
+        session.permanent = True
+        app.permanent_session_lifetime = timedelta(minutes=15)
         return redirect('/form')
     else:
         return render_template('handling/error/error-login-master.html')
