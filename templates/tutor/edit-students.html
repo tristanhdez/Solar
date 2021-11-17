@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	<form method="post" action="/update-students">
+        {% for value in data %}
+        <input type="hidden" value="{{value[0]}}" name="id_student" >
+        <input type="hidden" value="{{value[4]}}" name="id_career" >
+        <input type="hidden" value="{{value[6]}}" name="id_tutor">
+        Nombre  <input type="text" value="{{value[1]}}" name="name_student" size="50"style="height: 20px;"><br>
+        Correo  <input type="text" value="{{value[2]}}" name="email_student"  size="50"style="height: 20px;"><br>
+        Código  <input type="text" value="{{value[3]}}" name="code_student"  size="50"style="height: 20px;"><br>
+        Carrera  <input type="text" value="{{value[5]}}" name="career_student"  size="50"style="height: 20px;"><br>
+        Tutor  <input type="text" value="{{value[7]}}" name="tutor_name"  size="50"style="height: 20px;" readonly><br>
+        <button type="submit" name="editar" class="editar">Editar</button>
+    </form>
+    {% endfor %}
+</body>
+</html>

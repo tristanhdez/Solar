@@ -15,6 +15,7 @@
         <a href="/tutors">Tutores</a>
         <a href="/students">Estudiantes</a>
         <a href="/form">Preguntas</a>
+        <a href="/logout-master">Log out</a>
       </div>
     <table class="content-table" align="center">
         <thead>
@@ -33,10 +34,10 @@
                 <td>{{value[1]}}</td>
                 <td >{{value[2]}}</td>
                 <td style="text-align: center;">{{value[3]}}</td>
-                <td style="text-align: center;">{{value[4]}}</td>
                 <td style="text-align: center;">{{value[5]}}</td>
+                <td style="text-align: center;">{{value[7]}}</td>
                 <td style="text-align: center;">
-                    <a href="/edit-question/{{value[0]}}" class="btn">Editar</a>
+                    <a href="/edit-students/{{value[0]}}/{{value[4]}}/{{value[6]}}" class="btn">Editar</a>
                 </td>
             </tr>
             {% endfor %}
