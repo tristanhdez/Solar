@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template, request, session
 from datetime import timedelta
+from functools import wraps
 #from flask.helpers import url_for
 from flaskext.mysql import MySQL
 #from pymysql import connections, cursors
@@ -35,7 +36,14 @@ def login():
 
 @app.route('/')
 def home():
+    if 'studentCode' in session:
+        return render_template('home.html')
+    elif 'pwd' in session:
+        return render_template('home.html')
+    session.pop('studentCode',None)
+    session.pop('pwd',None)
     return render_template('home.html')
+
 
 @app.route('/master-login')
 def master_login():
@@ -84,10 +92,18 @@ def not_found(self):
 def internal_error(error):
     return render_template('handling/error/error-500.html'), 500
 
+@app.errorhandler(405)
+def method_not_found(error):
+    return render_template('handling/error/error-405.html'), 405
+
 '''
 @app.route('/error-500')
 def error_500():
     return render_template('handling/error/error-500.html')
+
+@app.route('/error-405')
+def error_405():
+    return render_template('handling/error/error-405.html')
 
 @app.route('/error-400')
 def error_400():
@@ -313,7 +329,7 @@ def get():
     else:
         connection = mysql.connect()
         cursor=connection.cursor()
-        cursor.execute("SELECT respuesta FROM preguntas WHERE keyword='"+userText+"'")
+        cursor.execute("SELECT respuesta FROM preguntas LIKE keyword='"+userText+"'")
         connection.commit()
         data = cursor.fetchall()
         result = " ".join(str(x) for x in data)
@@ -360,7 +376,7 @@ def verify_student():
         result = result.replace("(","").replace(")","").replace(","," ").replace(" ","")
         if studentCode == result:
             session.permanent = True
-            app.permanent_session_lifetime = timedelta(minutes=1)
+            app.permanent_session_lifetime = timedelta(minutes=15)
             session['studentCode'] = studentCode
             return redirect('/solar')
     return render_template('handling/error/error-login-student.html')
@@ -378,13 +394,13 @@ def verify_master():
 
 @app.route('/logout-student')
 def logout_student():
-    session.clear()
+    session.pop('studentCode',None)
     session.permanent = False
     return redirect('/login')
 
 @app.route('/logout-master')
 def logout_master():
-    session.clear()
+    session.pop('pwd',None)
     session.permanent = False
     return redirect('/master-login')
 
