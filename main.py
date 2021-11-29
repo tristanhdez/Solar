@@ -1,13 +1,13 @@
 from flask import Flask
 from flask import render_template, request, session
 from datetime import timedelta
-from functools import wraps
 #from flask.helpers import url_for
 from flaskext.mysql import MySQL
 #from pymysql import connections, cursors
 #from werkzeug import datastructures
 from werkzeug.utils import redirect
 import re
+from flask_mail import Mail, Message
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '123'
 mysql= MySQL()
@@ -15,6 +15,14 @@ app.config['MYSQL_DATABASE_HOST']='localhost'
 app.config['MYSQL_DATABASE_USER']='root'
 app.config['MYSQL_DATABASE_PASSWORD']=''
 app.config['MYSQL_DATABASE_DB']='tutorias'
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'soysolarelbot@gmail.com'
+app.config['MAIL_PASSWORD'] = 'jitgirosvbiigney'
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
+
 mysql.init_app(app)
 
 @app.route('/solar')
@@ -44,6 +52,13 @@ def home():
     session.pop('pwd',None)
     return render_template('home.html')
 
+@app.route('/suggest')
+def suggest():
+    if 'studentCode' in session:
+        return render_template('student/suggest.html')
+    elif 'pwd' in session:
+        return render_template('student/suggest.html')
+    return "Error"
 
 @app.route('/master-login')
 def master_login():
@@ -121,6 +136,16 @@ def error_400():
 def error_form():
     return render_template('handling/error/error-form.html')
 '''
+
+@app.route("/sending-email", methods=['POST','GET'])
+def sending_email():
+    if request.method == "POST":
+        msg = Message("¡Nueva Pregunta Sugerida!", sender= 'soysolarelbot@gmail.com',recipients= ["soysolarelbot@gmail.com"])
+        msg.body = request.form.get("body")
+        mail.send(msg)
+        return render_template("student/result-email.html", result="Success")
+    else:
+       return render_template("student/result-email.html", result="Failure")
 @app.route('/tutor-and-student')
 def tutor_and_student():
     try:
