@@ -141,7 +141,9 @@ def error_form():
 def sending_email():
     if request.method == "POST":
         msg = Message("¡Nueva Pregunta Sugerida!", sender= 'soysolarelbot@gmail.com',recipients= ["soysolarelbot@gmail.com"])
-        msg.body = request.form.get("body")
+        msg.body = "¡Hola, Administrador!\n ¡Un alumno ha enviado una nueva sugerencia!\n"+"Pregunta: "+request.form.get("body")+"\n¡Chécalo!"
+        with app.open_resource("static/images/character/solar_icon_head.png") as fp:
+            msg.attach("solar_icon_head.png", "image/png", fp.read())
         mail.send(msg)
         return render_template("student/result-email.html", result="Success")
     else:
