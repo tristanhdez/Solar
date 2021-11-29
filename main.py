@@ -223,6 +223,7 @@ def edit_tutor_and_student():
                 cursor = connection.cursor()
                 cursor.execute(sql)
                 data = cursor.fetchall()
+                cursor.fetchone()
                 connection.commit()
                 return render_template('tutor/students.html', data=data)
             except Exception as e:
@@ -244,8 +245,9 @@ def form():
                 data = cursor.fetchall()
                 connection.commit()
                 return render_template('tutor/form.html', data=data)
-            except Exception as e:
-                print(e)
+            except mysql.connector.Error as err:
+                print("Some other error")
+                print(err)
                 return redirect('/error-form')
     except KeyError as e:
         print(e)
@@ -359,14 +361,17 @@ def get():
     userText = request.args.get('msg')
     connection = mysql.connect()
     cursor=connection.cursor()
-    cursor.execute("SELECT respuesta FROM preguntas WHERE keyword='"+userText+"'")
+    row = cursor.execute("SELECT respuesta FROM preguntas WHERE keyword='"+userText+"'")
     connection.commit()
     data = cursor.fetchall()
-    result = " ".join(str(x) for x in data)
-    result = result.replace("(","").replace(")","").replace("'","").replace("\\n"," ").replace("\\r"," ").replace("\\"," ")
-    result = result.replace(","," ")
-    print(result)
-    return str(result)
+    print(row)
+    if row == 1:
+        result = " ".join(str(x) for x in data)
+        result = result.replace("(","").replace(")","").replace("'","").replace("\\n"," ").replace("\\r"," ").replace("\\"," ")
+        result = result.replace(","," ")
+        print(result)
+        return str(result)
+    return str("No tengo esa respuesta en mi base de datos")
 
 @app.route('/storage', methods=['POST'])
 def storage():
