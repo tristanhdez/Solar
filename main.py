@@ -57,6 +57,14 @@ def new_question():
     except KeyError:
         return "Error"
 
+@app.route('/new-tutor')
+def new_tutor():
+    try:
+        if session['pwd'] != session:
+            return render_template('tutor/new-tutor.html')
+    except KeyError:
+        return "Error"
+
 '''
 @app.route('/suggest')
 def suggest():
@@ -113,12 +121,30 @@ def error_400():
 def error_form():
     return render_template('handling/error/error-form.html')
 '''
+@app.route('/tutor-and-student')
+def tutor_and_student():
+    try:
+        if session['pwd'] != session:
+            try:
+                sql = "SELECT tutores.id_tutor, tutores.nombre, tutores.correo,carreras.id_carrera, carreras.nombre AS carrera, alumnos.id_alumno, alumnos.nombre AS alumnos FROM alumnos INNER JOIN carreras ON alumnos.id_carrera = carreras.id_carrera INNER JOIN tutores ON alumnos.id_tutor = tutores.id_tutor";
+                connection= mysql.connect()
+                cursor = connection.cursor()
+                cursor.execute(sql)
+                data = cursor.fetchall()
+                connection.commit()
+                return render_template('tutor/tutor-and-student.html', data=data)
+            except Exception as e:
+                return render_template('/error-form')
+    except KeyError as e:
+        print(e)
+        return "Error"
+
 @app.route('/tutors')
 def tutors():
     try:
         if session['pwd'] != session:
             try:
-                sql = "SELECT tutores.id_tutor, tutores.nombre, tutores.correo,carreras.id_carrera, carreras.nombre AS carrera, alumnos.id_alumno, alumnos.nombre AS alumnos FROM alumnos INNER JOIN carreras ON alumnos.id_carrera = carreras.id_carrera INNER JOIN tutores ON alumnos.id_tutor = tutores.id_tutor";
+                sql = "SELECT tutores.id_tutor, tutores.nombre, tutores.correo, carreras.id_carrera, carreras.nombre AS carreras FROM tutores INNER JOIN carreras ON tutores.id_carrera = carreras.id_carrera;";
                 connection= mysql.connect()
                 cursor = connection.cursor()
                 cursor.execute(sql)
@@ -141,21 +167,22 @@ def edit_tutor(id_tutor,id_career,id_student):
                 cursor.execute("SELECT tutores.id_tutor, tutores.nombre, tutores.correo, carreras.nombre, carreras.id_carrera AS carrera, alumnos.nombre, alumnos.id_alumno AS alumnos FROM alumnos INNER JOIN carreras ON alumnos.id_carrera = carreras.id_carrera INNER JOIN tutores ON alumnos.id_tutor = tutores.id_tutor WHERE tutores.id_tutor =%s AND alumnos.id_alumno=%s AND carreras.id_carrera=%s",(id_tutor,id_student,id_career)) 
                 data = cursor.fetchall()
                 connection.commit()
-                return render_template('tutor/edit-tutor.html', data=data)
+                return render_template('tutor/edit-tutor-and-student.html', data=data)
             except Exception as e:
+                print(e)
                 return render_template('handling/error/error-edit-tutor.html')
     except KeyError as e:
         print(e)
         return "Error"
 
-@app.route('/edit-students/<int:id_student>/<int:id_career>/<int:id_tutor>/')
-def edit_students(id_student,id_career,id_tutor):
+@app.route('/edit-students/<int:id_student>/<int:id_career>/')
+def edit_students(id_student,id_career):
     try: 
         if session['pwd'] != session:
             try:
                 connection = mysql.connect()
                 cursor = connection.cursor()
-                cursor.execute("SELECT alumnos.id_alumno, alumnos.nombre, alumnos.correo, alumnos.codigo, carreras.id_carrera, carreras.nombre AS carreras, tutores.id_tutor, tutores.nombre AS tutor FROM alumnos INNER JOIN carreras ON alumnos.id_carrera = carreras.id_carrera INNER JOIN tutores ON alumnos.id_tutor = tutores.id_tutor WHERE alumnos.id_alumno=%s AND carreras.id_carrera=%s AND tutores.id_tutor=%s",(id_student,id_career,id_tutor))
+                cursor.execute("SELECT alumnos.id_alumno, alumnos.nombre, alumnos.correo, alumnos.codigo, carreras.id_carrera, carreras.nombre AS carreras FROM alumnos INNER JOIN carreras ON alumnos.id_carrera = carreras.id_carrera WHERE alumnos.id_alumno =%s AND alumnos.id_carrera = %s;",(id_student,id_career))
                 data = cursor.fetchall()
                 connection.commit()
                 return render_template('tutor/edit-students.html', data=data)
@@ -172,7 +199,26 @@ def students():
     try: 
         if session['pwd'] != session:
             try:
-                sql = "SELECT alumnos.id_alumno, alumnos.nombre, alumnos.correo, alumnos.codigo, carreras.id_carrera, carreras.nombre AS carreras, tutores.id_tutor, tutores.nombre AS tutor FROM alumnos INNER JOIN carreras ON alumnos.id_carrera = carreras.id_carrera INNER JOIN tutores ON alumnos.id_tutor = tutores.id_tutor;";
+                sql = "SELECT alumnos.id_alumno, alumnos.nombre, alumnos.correo, alumnos.codigo, carreras.id_carrera, carreras.nombre AS carreras FROM alumnos INNER JOIN carreras ON alumnos.id_carrera = carreras.id_carrera;";
+                connection= mysql.connect()
+                cursor = connection.cursor()
+                cursor.execute(sql)
+                data = cursor.fetchall()
+                connection.commit()
+                return render_template('tutor/students.html', data=data)
+            except Exception as e:
+                return redirect('/error-form')
+    except KeyError as e:
+        print(e)
+        return "Error"
+    return "Error"
+
+@app.route('/edit-tutor-and-student.html')
+def edit_tutor_and_student():
+    try: 
+        if session['pwd'] != session:
+            try:
+                sql = "SELECT tutores.id_tutor, tutores.nombre, tutores.correo,carreras.id_carrera, carreras.nombre AS carrera, alumnos.id_alumno, alumnos.nombre AS alumnos FROM alumnos INNER JOIN carreras ON alumnos.id_carrera = carreras.id_carrera INNER JOIN tutores ON alumnos.id_tutor = tutores.id_tutor";
                 connection= mysql.connect()
                 cursor = connection.cursor()
                 cursor.execute(sql)
@@ -257,15 +303,12 @@ def update_tutor():
         if session['pwd'] != session:
             try:
                 tutor_id = request.form['tutor_id']
-                career_id = request.form['career_id']
-                student_id = request.form['student_id']
                 tutor_name = request.form['tutor_name']
                 tutor_email = request.form['tutor_email']
                 tutor_career = request.form['tutor_career']
-                student_name = request.form['student_name']
-                if tutor_id and career_id and student_id and tutor_name and tutor_email and tutor_career and student_name and request.method == 'POST':
-                    sql = "UPDATE tutores SET nombre = %s, correo = %s, id_carrera = %s WHERE tutores.id_tutor = %s;"
-                    data =(tutor_name,tutor_email,career_id,tutor_id)
+                if tutor_id and tutor_name and tutor_email and tutor_career and request.method == 'POST':
+                    sql = "UPDATE `tutores` SET `nombre` = %s, `correo` =%s, `id_carrera` = %s WHERE `tutores`.`id_tutor` = %s;"
+                    data =(tutor_name,tutor_email,tutor_career,tutor_id)
                     connection = mysql.connect()
                     cursor = connection.cursor()
                     cursor.execute(sql,data)
@@ -288,15 +331,13 @@ def update_students():
             try:
                 id_student= request.form['id_student']
                 id_career= request.form['id_career']
-                id_tutor= request.form['id_tutor']
                 name_student = request.form['name_student']
                 email_student = request.form['email_student']
                 code_student = request.form['code_student']
                 career_student = request.form['career_student']
-                tutor_name = request.form['tutor_name']
-                if id_student and id_tutor and id_career and name_student and email_student and code_student and career_student and tutor_name and request.method == 'POST':
-                    sql = "UPDATE `alumnos` SET `nombre` = %s, `correo` = %s, `codigo` = %s, `id_carrera` = %s, `id_tutor` =%s WHERE alumnos.id_alumno =%s;"
-                    data =(name_student,email_student,code_student,id_career,id_tutor,id_student)
+                if id_student and id_career and name_student and email_student and code_student and career_student  and request.method == 'POST':
+                    sql = "UPDATE alumnos SET nombre = %s,correo = %s, codigo =%s, id_carrera =%s WHERE alumnos.id_alumno =%s"
+                    data =(name_student,email_student,code_student,id_career,id_student)
                     connection = mysql.connect()
                     cursor = connection.cursor()
                     cursor.execute(sql,data)
@@ -316,27 +357,16 @@ def update_students():
 @app.route('/get')
 def get():
     userText = request.args.get('msg')
-    if userText == "tutores":
-        connection = mysql.connect()
-        cursor=connection.cursor()
-        cursor.execute("SELECT * FROM tutores;")
-        connection.commit()
-        data = cursor.fetchall()
-        result = " ".join(str(x) for x in data)
-        result = result.replace("(","").replace(")","\n").replace("'","").replace("\\n"," ").replace("\\r","  ").replace("\\"," ")
-        print("Con gusto:\n"+result)
-        return str("Con gusto:\n"+result)
-    else:
-        connection = mysql.connect()
-        cursor=connection.cursor()
-        cursor.execute("SELECT respuesta FROM preguntas LIKE keyword='"+userText+"'")
-        connection.commit()
-        data = cursor.fetchall()
-        result = " ".join(str(x) for x in data)
-        result = result.replace("(","").replace(")","").replace("'","").replace("\\n"," ").replace("\\r"," ").replace("\\"," ")
-        result = result.replace(","," ")
-        print(result)
-        return str(result)
+    connection = mysql.connect()
+    cursor=connection.cursor()
+    cursor.execute("SELECT respuesta FROM preguntas WHERE keyword='"+userText+"'")
+    connection.commit()
+    data = cursor.fetchall()
+    result = " ".join(str(x) for x in data)
+    result = result.replace("(","").replace(")","").replace("'","").replace("\\n"," ").replace("\\r"," ").replace("\\"," ")
+    result = result.replace(","," ")
+    print(result)
+    return str(result)
 
 @app.route('/storage', methods=['POST'])
 def storage():
@@ -359,6 +389,31 @@ def storage():
                     return render_template('handling/error/error-save.html')
             except Exception as e:
                 print(e)
+    except KeyError as e:
+        print(e)
+        return "Error"
+
+@app.route('/storage-tutor', methods=['POST'])
+def storage_tutor():
+    try:
+        if session['pwd'] != session:
+            try:
+                name = request.form['name']
+                email = request.form['email']
+                career = request.form['career']
+                connection = mysql.connect()
+                cursor = connection.cursor()
+                if name and email and career and request.method == 'POST':
+                    sql = "INSERT INTO `tutores` (`id_tutor`, `nombre`, `correo`, `id_carrera`) VALUES (NULL,%s, %s,%s);"
+                    data = (name, email, career)
+                    cursor.execute(sql,data)
+                    connection.commit()
+                    return render_template('handling/sucess/created.html')
+                else:
+                    return render_template('handling/error/error-save.html')
+            except Exception as e:
+                print(e)
+                return render_template('handling/error/error-save.html')
     except KeyError as e:
         print(e)
         return "Error"
