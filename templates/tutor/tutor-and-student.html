@@ -2,22 +2,21 @@
 {% block content %}
     <div class="topnav">
         <img src="../../static/images/character/solar_icon.png">
-        <a class="active" href="/new-question">Agregar Estudiante</a>
+        <a class="active" href="/new-tutor">Agregar Tutor</a>
         <a href="/tutor-and-student"><i class="fas fa-user-graduate"></i> Tutor y Tutorado</a>
         <a href="/tutors"><i class="fas fa-user-tie"></i> Tutores</a>
         <a href="/students"><i class="fas fa-graduation-cap"></i> Estudiantes</a>
         <a href="/form"><i class="far fa-question-circle"></i> Preguntas</a>
         <a href="/logout-master"><i class="fas fa-sign-out-alt"></i> Log out</a>
-        <input type="text" placeholder="Search..">
-      </div>
+        <input type="text" placeholder="Buscar tutor">
+    </div>
         <thead>
             <tr>
-                <th style="width: 450px;">Nombre</th>
-                <th style="width: 350px;">Correo</th>
-                <th style="width: 100px;">Código</th>
-                <th style="width: 170px;">Carrera</th>
-                <th style="width: 50px;"></th>
-                <th style="width: 110px;">Acciones</th>
+                <th> <i class="fas fa-signature"></i> Nombre del Tutor</th>
+                <th style="width: 300px;"><i class="far fa-envelope"></i> Correo</th>
+                <th style="width: 110px;"><i class="fas fa-book"></i> Carrera</th>
+                <th style="width: 370px;"><i class="fas fa-user-graduate"></i> Tutorado</th>
+                <th style="width: 180px;"><i class="fas fa-exclamation-circle"></i> Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -25,11 +24,10 @@
             <tr>
                 <td>{{value[1]}}</td>
                 <td >{{value[2]}}</td>
-                <td style="text-align: center;">{{value[3]}}</td>
-                <td style="text-align: center;">{{value[5]}}</td>
-                <td style="text-align: center;">{{value[7]}}</td>
+                <td style="text-align: center;">{{value[4]}}</td>
+                <td>{{value[6]}}</td>
                 <td style="text-align: center;">
-                    <a href="/edit-students/{{value[0]}}/{{value[4]}}/" class="btn">Editar</a>
+                    <a href="/edit-tutor/{{value[0]}}/{{value[3]}}/{{value[5]}}" class="btn"><i class="fas fa-pen"></i>  Editar</a>
                 </td>
             </tr>
             {% endfor %}

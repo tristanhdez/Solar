@@ -1,46 +1,35 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ url_for('static',filename='styles/form.css') }}" rel="stylesheet" type="text/css" id="theme_css">
-    <title>Form</title>
-</head>
-<body>
-    {% if session['pwd'] %}
-    <div class="topnav">
-        <img src="../../static/images/character/solar_icon.png">
-        <a class="active" href="/new-question">Agregar Pregunta</a>
-        <a href="/tutors">Tutores</a>
-        <a href="/students">Estudiantes</a>
-        <a href="/form">Preguntas</a>
-        <a href="/logout-master">Log out</a>
-      </div>
-    <table class="content-table" align="center">
-        <thead>
-            <tr>
-                <th>Pregunta</th>
-                <th style="width: 450px;">Respuesta</th>
-                <th>Palabra Clave</th>
-                <th style="width: 100px;">Etapa</th>
-                <th style="width: 100px;">Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for value in data %}
-            <tr>
-                <td>{{value[1]}}</td>
-                <td>{{value[2]}}</td>
-                <td style="text-align: center; height: 60px;">{{value[3]}}</td>
-                <td style="text-align: center;">{{value[4]}}</td>
-                <td style="text-align: center;">
-                    <a href="/edit-question/{{value[0]}}" class="btn">Editar</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
-{% endif %}
-</html>
+{% extends 'layout/form.html' %}
+{% block content %}
+<div class="topnav">
+    <img src="../../static/images/character/solar_icon.png">
+    <a class="active" href="/new-question">Agregar Pregunta</a>
+    <a href="/tutor-and-student"><i class="fas fa-user-graduate"></i> Tutor y Tutorado</a>
+    <a href="/tutors"><i class="fas fa-user-tie"></i> Tutores</a>
+    <a href="/students"><i class="fas fa-graduation-cap"></i> Estudiantes</a>
+    <a href="/form"><i class="far fa-question-circle"></i> Preguntas</a>
+    <a href="/logout-master"><i class="fas fa-sign-out-alt"></i> Log out</a>
+    <input type="text" placeholder="Search..">
+</div>
+<thead>
+    <tr>
+        <th>Pregunta</th>
+        <th style="width: 450px;">Respuesta</th>
+        <th>Palabra Clave</th>
+        <th style="width: 100px;">Etapa</th>
+        <th style="width: 100px;">Acción</th>
+    </tr>
+</thead>
+<tbody>
+    {% for value in data %}
+    <tr>
+        <td>{{value[1]}}</td>
+        <td>{{value[2]}}</td>
+        <td style="text-align: center; height: 60px;">{{value[3]}}</td>
+        <td style="text-align: center;">{{value[4]}}</td>
+        <td style="text-align: center;">
+            <a href="/edit-question/{{value[0]}}" class="btn">Editar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+{% endblock content %}
