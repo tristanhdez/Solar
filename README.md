@@ -1,13 +1,24 @@
 # Solar
-Hey!
 
+![alt text](https://github.com/tristanHdez18/Solar/blob/master/static/images/character/solar_icon_head.png)
+
+## About
 Welcome to Solar!☀️🤖
 
 Solar is a Chat bot probably to use at Universidad de Guadalajara - CUTONALÁ where Solar try to answer questions about tutorship using IA.
 
-# How we work?
-We need to take a role and then, contact with the 'head' to have more information about it.
-Please, check the GitHub to more information [here](https://github.com/tristanHdez18/Solar).
+## Installation
 
-# What do you need?
-Basic knowledge of JavaScript, HTML5, CSS3, MySQL, GSAP and Git.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the dependences.
+
+```bash
+pip install -r requirements.txt
+```
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
