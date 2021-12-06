@@ -1,0 +1,76 @@
+body{
+  padding: 0 2%;
+  color: #2e3e50;
+  background-image: url("/static/images/wallpaper/wallpaper_suggest.png");
+  background-size: cover;
+  background-position: center;
+}
+.X{
+  margin: auto;
+  padding: 1% 2%;
+  max-width: 1440px;
+  border-radius: 5px;
+  background: #a8d8cd;
+  box-shadow: 0 2px 6px 0 rgba(0,0,0, .3);
+}
+h1,h2,h3{
+  text-align: center;
+  font-family: sans-serif;
+}
+li{
+  color: #2c3e50;
+  font-size: 18px;
+  line-height: 30px;
+  text-align: justify;
+  letter-spacing: 1px;
+  font-family: sans-serif;
+}
+/*SG = style grid*/
+.SG{
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.SG .sgLi{
+  min-width: 24%;
+  margin: 2% .35%;
+  display: inline-flex;
+  box-shadow: 0 2px 4px rgba(0,0,0, .2);
+}
+.SG .sgLi:hover{
+  box-shadow:0 5px 10px rgba(0,0,0,.15);}
+.SG .box{
+  width: 100%;
+  height: 100vh;
+  padding: 1% 2%;
+  background: #e8eeed;
+  min-height: 1100px;
+  max-height: 220px;
+  box-sizing: border-box;
+}
+/*Styles */
+.df{list-style-type: disc;}
+.s1{list-style-type: square;}
+.s2{list-style-type: circle;}
+.s18 li:before{
+  content: '';
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+  display: inline-block;
+  background: url(//goo.gl/lcPSVD);
+  background-position: 50%;
+}
+.s19{list-style: none;}
+.s19 li:before{
+  content: '\f0a9';
+  margin-right: 15px;
+  font-family: sans-serif;
+}
+
+/* responsive grid*/
+@media (max-width: 970px){
+  .SG .sgLi{width: 180px;}}
+@media (max-width: 425px){
+  .SG .sgLi{width: 100%;}
+}

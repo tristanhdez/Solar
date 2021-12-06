@@ -3,16 +3,20 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+	<link href= "{{ url_for('static',filename='styles/edit_tutor.css') }}" rel="stylesheet" type="text/css">
+    <title>Editar tutor</title>
 </head>
 <body>
+    <H1>¡Edita el tutor!</H1><br>
 	<form method="post" action="/update-tutor">
         {% for value in data %}
+        <img class="solar" src="/static/images/character/solar_icon_head.png" style="height: 120px; width: 120px;">
         <input type="hidden" name="tutor_id" value="{{value[0]}}">
-        <p> Nombre <input type="text" name="tutor_name" value="{{value[1]}}" size="50"style="height: 20px;"></p>
-        <p> Correo <input type="text" name="tutor_email" value="{{value[2]}}" size="50" style="height: 20px;"></p>
-        <p> Carrera <input type="text" name="tutor_career" value="{{value[3]}}" size="1" style="height: 20px;"></p>
-         <button type="submit" name="editar" class="editar">Editar</button>
+        <p> Nombre <input type="text" name="tutor_name" value="{{value[1]}}" size="50"style="height: 30px;"></p>
+        <p> Correo <input type="text" name="tutor_email" value="{{value[2]}}" size="50" style="height: 30px;"></p>
+        <p> Carrera <input type="text" name="tutor_career" value="{{value[3]}}" size="50" style="height: 30px;"></p>
+        <br>
+        <button type="submit" name="editar" class="editar">Editar</button>
     </form>
     {% endfor %}
 </body>

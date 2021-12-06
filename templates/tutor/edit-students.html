@@ -1,22 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
-</head>
-<body>
-	<form method="post" action="/update-students">
-        {% for value in data %}
+<TITLE>
+    Formulario preguntas
+    </TITLE>
+    <HEAD>
+      <link href= "{{ url_for('static',filename='styles/edit_student.css') }}" rel="stylesheet" type="text/css" id="theme_css">
+    </HEAD>
+    <BODY>
+
+    <H1>¡Edita el estudiante!</H1>
+    <BR>
+
+    {% for value in data %}
+    <form method="post" action="/update-students">
+        <img class="solar" src="/static/images/character/solar_icon_head.png" style="height: 120px; width: 120px;">
         <input type="hidden" value="{{value[0]}}" name="id_student" >
-        
-        Nombre  <input type="text" value="{{value[1]}}" name="name_student" size="50"style="height: 20px;"><br>
-        Correo  <input type="text" value="{{value[2]}}" name="email_student"  size="50"style="height: 20px;"><br>
-        Código  <input type="text" value="{{value[3]}}" name="code_student"  size="50"style="height: 20px;"><br>
-        Carrera  <input type="text" value="{{value[5]}}" name="career_student"  size="50"style="height: 20px;"><br>
-        <input type="text" value="{{value[4]}}" name="id_career">
-        <button type="submit" name="editar" class="editar">Editar</button>
+        <p>Nombre  <input type="text" value="{{value[1]}}" name="name_student" size="50"style="height: 30px;"><br></p>
+        <p>Correo  <input type="text" value="{{value[2]}}" name="email_student"  size="50"style="height: 30px;"><br></p>
+        <p>Código  <input type="text" value="{{value[3]}}" name="code_student"  size="50"style="height: 30px;"><br></p>
+        <p>Carrera  <input type="text" value="{{value[5]}}" name="career_student"  size="50"style="height: 30px;"><br></p>
+        <p>ID Carrera<input type="text" value="{{value[4]}}" name="id_career" size="50"style="height: 30px;"></p>
+    <BR>
+    <BR>
+         <button type="submit" name="editar" class="editar">Editar</button>
     </form>
+        <br>
     {% endfor %}
-</body>
-</html>
+</BODY>
+</HTML>

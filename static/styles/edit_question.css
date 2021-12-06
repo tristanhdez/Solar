@@ -5,7 +5,7 @@ body{
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color:#EAC385;
+    background-color:#1ABC9C;
     height: 100px;
     margin: 0;
 }
@@ -17,7 +17,7 @@ body H1{
     text-align: center;
     margin: 0;
     color: white;
-    background-color: #CA650D;
+    background-color:#2C3E50;
     font-style:unset;
     font-family: 'Poppins', sans-serif;
     padding: 5px;

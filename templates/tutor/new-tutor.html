@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href= "{{ url_for('static',filename='styles/new_tutor.css') }}" rel="stylesheet" type="text/css">
     <title>Document</title>
 </head>
 <body>
+    <H1>¡Agregar Estudiante!</H1><br>
     <form method="post" action="/storage-tutor">
-        Nombre del Tutor <input type="text" name="name">
-        Correo del Tutor <input type="text" name="email">
-        Carrera <input type="text" name="career">
-        <button type="submit" name="editar" class="editar">Agregar tutor</button>
+        <img class="solar" src="/static/images/character/solar_icon_head.png" style="height: 120px; width: 120px;">
+        <p>Nombre del Tutor <input type="text" name="name" size="50"style="height: 30px;"></p>
+        <p>Correo del Tutor <input type="text" name="email" size="50"style="height: 30px;"></p>
+        <p>Carrera <input type="text" name="career" size="50"style="height: 30px;"></p>
+        <button type="submit" name="editar" class="editar">Agregar</button>
     </form>
 </body>
 </html>

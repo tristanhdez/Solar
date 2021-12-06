@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
 body{
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
@@ -16,7 +17,7 @@ body H1{
     text-align: center;
     margin: 0;
     color: white;
-    background-color: #2C3E50;
+    background-color:#2C3E50;
     font-style:unset;
     font-family: 'Poppins', sans-serif;
     padding: 5px;
@@ -37,19 +38,39 @@ form{
     align-items: center;
     font-size: 18px;
 }
-.preg{
+.email_student{
     height: 20;
     background-color: #eee;
     border-radius: 5px;
     border: 0;
 }
-.resp{
+.name_student{
     height: 20;
     background-color: #eee;
     border-radius: 5px;
     border: 0;
 }
-.inser{
+.code_student{
+    height: 20;
+    background-color: #eee;
+    border-radius: 5px;
+    border: 0;
+}
+.career_student{
+    height: 20;
+    background-color: #eee;
+    border-radius: 5px;
+    border: 0;
+}
+
+.id_career{
+    height: 20;
+    background-color: #eee;
+    border-radius: 5px;
+    border: 0;
+}
+
+.editar{
     font-family: 'Poppins', sans-serif;
     background-color: #1B2E3C;
     font-size: 16px;
@@ -57,13 +78,3 @@ form{
     width: 75px;
     height: 30px;
 }
-.etapa{
-    font-family: 'Poppins', sans-serif;
-    background-color: #7EC8E3;
-    font-size: 16px;
-    color: #000;
-    width: 75px;
-    height: 30px;
-    border-radius: 10px;
-}
-

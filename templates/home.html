@@ -1,32 +1,40 @@
-
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Bienvenido a Solar!</title>
     <link href="{{ url_for('static',filename='styles/home.css') }}" rel="stylesheet" type="text/css">
-    <title>Bienvenido</title>
-</head>
-<body>
-    
-    <header id="header">
-        <img class="solar" src="static/images/character/solar_icon_head.png">
-        <h2>● Solar</h2>
+    <script src="https://kit.fontawesome.com/4237cc4cee.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+
+    <section>
+      <header>
+        <h2><a href="/" class="logo">Solar</a></h2>
+        <div class="navigation">
+          <a href="/">Home</a>
+        </div>
+      </header>
+      <div class="content">
+        <div class="info">
+          <h2>¡Hola,Soy Solar! <br><br></h2>
+          <p>Soy un chatbot creado y diseñado 
+            para el Centro universitario de Tonalá, con 
+            la finalidad de apoyar a miembros de este 
+            campus con la resolución de dudas que puedan 
+            surgir.</p>
+          <a href="/login" class="info-btn">Ingresar</a>
+        </div>
+      </div>
+      <div class="media-icons">
+        <a href="https://www.facebook.com/centrouniversitariodetonala/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f" target="_blank" rel="noopener noreferrer" ></i></a>
+        <a href="http://www.cutonala.udg.mx/" target="_blank" rel="noopener noreferrer" ><i class="fas fa-globe"></i></a>
+        <a href="https://discord.gg/rnd769rGEk" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i></a>
+        <a href="https://www.instagram.com/cutonala.udg/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
     </div>
+    </section>
 
-    <div class="title">
-        <h1>¡Hola, 
-            bienvenido a Solar!</h1>
-    </div>
-
-            <div class="h3">
-                <h3>Solar es un chatbot diseñado y creado para el 
-                    Centro universitario de Tonalá, con la única finalidad 
-                    de ayudar a cualquier miembro de este campus con la resolución 
-                    de dudas que puedan tener.</h3>
-            </div>
-
-            <a href="/login"><button type="submit" name="strt" class="start">Comenzar</button></a>
-</body>
+  </body>
 </html>
+      

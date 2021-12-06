@@ -1,10 +1,10 @@
 from flask import Flask
 from flask import render_template, request, session
 from datetime import timedelta
-from flaskext.mysql import MySQL #Install
+from flaskext.mysql import MySQL
 from werkzeug.utils import redirect
 from functools import wraps
-from flask_mail import Mail, Message # Install
+from flask_mail import Mail, Message
 import re
 
 app = Flask(__name__)
@@ -53,6 +53,11 @@ def index():
 def login():
     return render_template('student/login.html')
 
+@app.route('/keywords')
+@login_required
+def keywords():
+    return render_template('student/keywords.html')
+
 @app.route('/')
 def home():
         return render_template('home.html')
@@ -70,6 +75,11 @@ def master_login():
 @admin_required
 def new_question():
     return render_template('tutor/new-question.html')
+
+@app.route('/new-student')
+@admin_required
+def new_student():
+    return render_template('tutor/new-student.html')
 
 @app.route('/new-tutor')
 @admin_required
@@ -412,6 +422,29 @@ def storage_tutor():
         print(e)
         return render_template('handling/error/error-save.html')
 
+@app.route('/storage-student', methods=['POST'])
+@admin_required
+def storage_student():
+    try:
+        name = request.form['name']
+        email = request.form['email']
+        career = request.form['career']
+        code = request.form['code']
+        tutor = request.form['tutor']
+        connection = mysql.connect()
+        cursor = connection.cursor()
+        if name and email and career and code and tutor and request.method == 'POST':
+            sql = "INSERT INTO `alumnos` (`id_alumno`, `nombre`, `correo`, `codigo`, `id_carrera`, `id_tutor`) VALUES (NULL, %s, %s, %s, %s, %s);;"
+            data = (name, email, code, career, tutor)
+            cursor.execute(sql,data)
+            connection.commit()
+            return render_template('handling/sucess/created.html')
+        else:
+            return render_template('handling/error/error-save.html')
+    except KeyError as e:
+        print(e)
+        return render_template('handling/error/error-save.html')
+
 @app.route('/verify-student', methods=['POST'])
 def verify_student():
     studentCode = request.form['code']
@@ -455,4 +488,3 @@ def logout_master():
 
 if __name__== '__main__':
     app.run(host= '0.0.0.0',port=5000, debug=True)
-    #app.run(debug=True)
