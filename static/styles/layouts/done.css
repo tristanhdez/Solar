@@ -1,48 +1,72 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
 body{
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     background-color:#56B37B;
     height: 100px;
-    margin: 0;
+    margin: 0 auto;
 }
+
+.container{
+
+    width: 100%;
+    margin:0px auto;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat (3, 1fr);
+    grid-template-rows: repeat (4, auto);
+    background-color:#56B37B ;
+
+}
+.container > div,
+.containe.header ,
+.container.container2
+{
+    font-family: 'Poppins', sans-serif;
+    text-align:center ;
+
+}
+
 .solar{
-    width: 105px;
+    width: auto;
     height: 85px;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row: 2;
 }
-body H1{
+
+.header{
     text-align: center;
-    margin: 0;
     color: white;
     background-color: #175B0D;
     font-style:unset;
     font-family: 'Poppins', sans-serif;
     padding: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    top: 0px;
-    height: 60px;
+    grid-column-start: 1;
+    grid-column-end:4;
+    
 }
-form{
-    width: 50%;
-    max-width: 250px;
-    margin: auto;
-    display: flex;
+.container2{
+    width: auto;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     font-size: 18px;
+    justify-content: center;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
+ 
 }
 
 .button-area {
-    margin-top: 4rem;
-    width: 100%;
+   
     display: grid;
     place-items: center;
+    grid-row: 4;
+    grid-column-start: 1;
+    grid-column-start: 4;
 }
 
 button {
@@ -50,17 +74,16 @@ button {
     height: 3rem;
     border: none;
     outline: none;
-    color: #fff;
+    color: black;
     font-size: 1.4rem;
     cursor: pointer;
     border: 2px solid transparent;
     border-radius: 2rem;
-    background: #68BB5C;
+    background: #B4F8C8;
     transition: all 0.3s ease;
 }
 
 button:hover {
-    width: 100%;
     letter-spacing: 2px;
     background: transparent;
     border: 2px solid #fff;

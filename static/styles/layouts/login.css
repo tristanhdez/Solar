@@ -12,7 +12,7 @@ body {
     height: 100vh;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('../images/wallpaper/wallpaper_dark.jpg');
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(252, 201, 201, 0.7)), url('../../images/wallpaper/wallpapers_light.jpg');
     background-size: cover;
     background-position: center;
 }
@@ -87,25 +87,6 @@ form {
 input::placeholder {
     color: white;
     opacity: 0.8;
-  }
-<!--
-.forgot-pass {
-    margin-top: 0.4rem;
-    position: relative;
-}
-
-.forgot-pass a {
-    position: absolute;
-    top: 0;
-    left: 2rem;
-    color: #ddd;
-    font-size: 1rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.forgot-pass a:hover {
-    color: #65BA87;
 }
 
 .button-area {
