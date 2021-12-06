@@ -8,7 +8,9 @@ from flask_mail import Mail, Message # Install
 import re
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '123'
+#With os 
+#os.random(24)
+app.config['SECRET_KEY'] = 'secret-key:)'
 mysql= MySQL()
 app.config['MYSQL_DATABASE_HOST']='localhost'
 app.config['MYSQL_DATABASE_USER']='root'
@@ -30,7 +32,7 @@ def admin_required(f):
         if 'pwd' in session:
             return f(*args, **kwargs)
         else:
-            return "Logeate nuevamente"
+            return "Logueate nuevamente"
     return wrap
 
 def login_required(f):
@@ -39,7 +41,7 @@ def login_required(f):
         if 'studentCode' in session:
             return f(*args, **kwargs)
         else:
-            return "Logeate nuevamente"
+            return "Logueate nuevamente"
     return wrap
 
 @app.route('/solar')
@@ -52,42 +54,28 @@ def login():
     return render_template('student/login.html')
 
 @app.route('/')
-@login_required
 def home():
         return render_template('home.html')
 
 @app.route('/suggest')
+@login_required
 def suggest():
-    if 'studentCode' in session:
-        return render_template('student/suggest.html')
-    elif 'pwd' in session:
-        return render_template('student/suggest.html')
-    return "Error"
+    return render_template('student/suggest.html')
 
 @app.route('/master-login')
 def master_login():
     return render_template('tutor/login.html')
 
 @app.route('/new-question')
+@admin_required
 def new_question():
-    try:
-        if session['pwd'] != session:
-            return render_template('tutor/new-question.html')
-    except KeyError:
-        return "Error"
+    return render_template('tutor/new-question.html')
 
 @app.route('/new-tutor')
+@admin_required
 def new_tutor():
-    try:
-        if session['pwd'] != session:
-            return render_template('tutor/new-tutor.html')
-    except KeyError:
-        return "Error"
+    return render_template('tutor/new-tutor.html')
 
-'''
-@app.route('/suggest')
-def suggest():
-    return render_template('student/suggest.html')
 
 @app.route('/updated')
 def updated():
@@ -104,7 +92,7 @@ def error_update():
 @app.route('/error-save')
 def error_save():
     return render_template('handling/error/error-save.html')
-'''
+
 #Handling Errors
 
 @app.errorhandler(400)
@@ -127,7 +115,6 @@ def internal_error(error):
 def method_not_found(error):
     return render_template('handling/error/error-405.html'), 405
 
-'''
 @app.route('/error-500')
 def error_500():
     return render_template('handling/error/error-500.html')
@@ -143,7 +130,7 @@ def error_400():
 @app.route('/error-form')
 def error_form():
     return render_template('handling/error/error-form.html')
-'''
+
 
 @app.route("/sending-email", methods=['POST','GET'])
 @login_required
