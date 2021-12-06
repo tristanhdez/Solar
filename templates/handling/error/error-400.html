@@ -1,33 +1,19 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ url_for('static',filename='styles/handling/error-404.css') }}" rel="stylesheet" type="text/css">
-    <title>Error 400</title>
-</head>
-<body>
-    <div class="solar">
-        <img src="../../static/images/character/solar_icon_head.png" style="height: 120px; width: 120px;">
+{% extends 'layout/handling-error.html' %}
+{% block content %}
+    <div class="title" id="title">
+        <h1 id="titlenumber">Error 400</h1> 
     </div>
-    <div class="title">
-        <h1>400</h1>
-    </div>
-    <div class="line1">
+    <div class="line1" id="line1">
         <hr color=68BB5C>
     </div>
-    <div class="line2">
-        <hr color=68BB5C>
+    <div class="line2" id="line2">
+        <hr color=68BB5C >
     </div>
-            <div class="h1">
-                <h1>Error de solicitud</h1>
-            </div>
+    <div class="item1" id="item1">
+        <h1>Bad Request Error</h1>
+    </div>
 
-            <div class="h3">
-                <h3>La página no está disponible</h3>
-            </div>
-
-            <a href="/"><button type="submit" name="back" class="return">Regresar</button></a>
-</body>
-</html>
+    <div class="item2" id="item2">
+        <h3>El servidor no pudo acceder o procesar el request</h3>
+    </div>
+{% endblock content %}
