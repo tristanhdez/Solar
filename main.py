@@ -5,7 +5,11 @@ from flaskext.mysql import MySQL
 from werkzeug.utils import redirect
 from functools import wraps
 from flask_mail import Mail, Message
+import secrets
 import re
+import queue
+import emoji
+import random
 
 app = Flask(__name__)
 #With os 
@@ -24,7 +28,32 @@ app.config['MAIL_USERNAME'] = 'soysolarelbot@gmail.com'
 app.config['MAIL_PASSWORD'] = 'jitgirosvbiigney'
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
+q = queue.Queue()
 
+
+answers = [
+    "¡Por supuesto!😄\n",
+    "Of course!🤪\n",
+    "E-N S-E-G-U-I-D-A...🤖\n",
+    "'Yes' en Inglés 🧾(Jobs😉)\n",
+    "I'm coming!👀\n",
+    "¡Claro!🤓\n",
+    "🧐¡Enseguida!\n",
+    "Buscando...🔍\t ¡Aquí está!🤓\n",
+    "Searching...🔍\t Check it out!🤓\n",
+]
+
+
+without_answers=[
+    "No tengo esa información😰\n",
+    "No lo encuentro en mi base de datos😱\n",
+    "🤨I don't understand you\n",
+    "Hmmm, I don't know😧\n You could send your question below📫",
+    "No entiendo😖\n Puedes mandar correo con tu pregunta y pronto estará aquí🤓",
+    "Uy, no tengo respuesta para ello😶\n ¡Sugiere la pregunta aquí abajo!👇",
+    "No cuento con esa información😓\n Si quieres ver tu respuesta, ¡Sugiere una pregunta!🤓",
+    "No te lo vengo manejando, joven🤠\n ¡Deberías sugerir la pregunta!",
+]
 
 def admin_required(f):
     @wraps(f)
@@ -32,7 +61,7 @@ def admin_required(f):
         if 'pwd' in session:
             return f(*args, **kwargs)
         else:
-            return "Logueate nuevamente"
+            return render_template('handling/error/expired-session.html')
     return wrap
 
 def login_required(f):
@@ -41,11 +70,13 @@ def login_required(f):
         if 'studentCode' in session:
             return f(*args, **kwargs)
         else:
-            return "Logueate nuevamente"
+           return render_template('handling/error/expired-session.html')
     return wrap
+
 
 @app.route('/solar')
 @app.route('/chatbot')
+@login_required
 def index():
     return render_template('student/index.html')
 
@@ -136,21 +167,29 @@ def error_405():
 @app.route('/error-400')
 def error_400():
     return render_template('handling/error/error-400.html')
-
+''''
 @app.route('/error-form')
 def error_form():
     return render_template('handling/error/error-form.html')
-
+'''
 
 @app.route("/sending-email", methods=['POST','GET'])
 @login_required
 def sending_email():
-    if request.method == "POST":
+    body = request.form['body']
+    name = request.form['name']
+    if request.method == "POST" and body and name:
         msg = Message("¡Nueva Pregunta Sugerida!", sender= 'soysolarelbot@gmail.com',recipients= ["soysolarelbot@gmail.com"])
-        msg.body = "¡Hola, Administrador!\n ¡Un alumno ha enviado una nueva sugerencia!\n"+"Pregunta: "+request.form.get("body")+"\n¡Chécalo!"
+        msg.body = "¡Hola, Administrador!\n¡Un alumno ha enviado una nueva sugerencia!\nNombre: "+name+"\nPregunta: "+request.form.get("body")+"\n¡Chécalo aquí!:"+"http://127.0.0.1:5000/form"
         with app.open_resource("static/images/character/new-suggest.jpeg") as fp:
             msg.attach("new-suggest.jpeg", "image/jpeg", fp.read())
         mail.send(msg)
+        connection = mysql.connect()
+        cursor = connection.cursor()
+        sql = "INSERT INTO `sugerencias` (`id_email`, `name`, `message`) VALUES (NULL, %s, %s);"
+        data = (name,body)
+        cursor.execute(sql,data)
+        connection.commit()
         return render_template("student/result-email.html", result="Success")
     else:
        return render_template("student/result-email.html", result="Failure")
@@ -169,6 +208,71 @@ def tutor_and_student():
     except KeyError as e:
         print(e)
         return render_template('/error-form')
+
+@app.route('/emails')
+@admin_required
+def emails():
+    try:
+        sql = "SELECT * FROM sugerencias";
+        connection= mysql.connect()
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        data = cursor.fetchall()
+        connection.commit()
+        return render_template('tutor/emails.html', data=data)
+    except KeyError as e:
+        print(e)
+        return render_template('/error-form')
+
+@app.route('/validate-suggest/<int:id>/')
+@admin_required
+def validate_suggest(id):
+    try:
+        connection = mysql.connect()
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM sugerencias WHERE id_email=%s",(id)) 
+        data = cursor.fetchall()
+        connection.commit()
+        return render_template('tutor/edit-suggest.html', data = data)
+    except KeyError as e:
+        print(e)
+        return render_template('/error-form')
+
+@app.route('/storing-suggest', methods=['POST'])
+@admin_required
+def storing_suggest():
+    try:
+        id_email = request.form['id_email']
+        name = request.form['name']
+        suggest = request.form['suggest']
+        question = request.form['question']
+        answer = request.form['answer']
+        stage = request.form['stage']
+        keyword = request.form['keyword']
+        status = request.form['status']
+        connection = mysql.connect()
+        cursor = connection.cursor()
+        if name and question and answer and suggest and status and id_email and request.method == 'POST':
+            sql = "INSERT INTO `preguntas` (`id_pregunta`, `pregunta`, `respuesta`, `keyword`, `id_etapa`) VALUES (NULL, %s, %s, %s, %s);"
+            data = (question, answer, keyword, stage)
+            cursor.execute(sql,data)
+            connection.commit()
+            connection.close()
+        if id_email:
+            connection = mysql.connect()
+            cursor = connection.cursor()
+            sql1 = "UPDATE sugerencias SET status = %s WHERE sugerencias.id_email =%s"
+            data =(status,id_email)
+            connection = mysql.connect()
+            cursor = connection.cursor()
+            cursor.execute(sql1,data)
+            connection.commit()
+            connection.close()
+        return "Ok"
+    except KeyError as e:
+        print(e)
+        return render_template('/error-form')
+
 
 @app.route('/tutors')
 @admin_required
@@ -370,14 +474,16 @@ def get():
     row = cursor.execute("SELECT respuesta FROM preguntas WHERE keyword='"+userText+"'")
     connection.commit()
     data = cursor.fetchall()
-    print(row)
+    print(data)
     if row == 1:
         result = " ".join(str(x) for x in data)
         result = result.replace("(","").replace(")","").replace("'","").replace("\\n"," ").replace("\\r"," ").replace("\\"," ")
         result = result.replace(","," ")
         print(result)
-        return str(result)
-    return str("No tengo esa respuesta en mi base de datos")
+        answer = random.choice(answers)
+        return answer+result
+    withoutanswer = random.choice(without_answers)
+    return withoutanswer
 
 @app.route('/storage', methods=['POST'])
 @admin_required
@@ -457,9 +563,16 @@ def verify_student():
         result = " ".join(str(x) for x in data)
         result = result.replace("(","").replace(")","").replace(","," ").replace(" ","")
         if studentCode == result:
+            connection = mysql.connect()
+            cursor=connection.cursor()
+            cursor.execute("SELECT nombre FROM alumnos WHERE codigo='"+studentCode+"'")
+            connection.commit()
+            name = cursor.fetchall()
+            value = " ".join(str(x) for x in name)
+            value = value.replace("(","").replace(")","").replace(","," ").replace("'","")
+            session['studentCode'] = studentCode
             session.permanent = True
             app.permanent_session_lifetime = timedelta(minutes=15)
-            session['studentCode'] = studentCode
             return redirect('/solar')
     return render_template('handling/error/error-login-student.html')
 
@@ -468,11 +581,33 @@ def verify_master():
     pwd = request.form['pwd']
     if request.method == 'POST' and pwd == '123':
         session['pwd'] = pwd
-        session.permanent = True
-        app.permanent_session_lifetime = timedelta(minutes=15)
-        return redirect('/form')
+        key = secrets.token_urlsafe(5)
+        q.put(key)
+        print(q.queue)
+        msg = Message("🔑¡Llave Secreta!🔑", sender= 'soysolarelbot@gmail.com',recipients= ["soysolarelbot@gmail.com"])
+        msg.body = "¡Hola, Administrador!👋\n ¡Para poder proceder necesitamos la palabra clave!\n"+"Key:"+key+"\n¡Chécalo!👀"
+        mail.send(msg)
+        return render_template('tutor/verify-key.html')
     else:
         return render_template('handling/error/error-login-master.html')
+
+@app.route('/request-code', methods=['POST'])
+def request_code():
+    original_key = q.get(1)
+    print(q.queue)
+    email_key = request.form['key']
+    if original_key == email_key:
+        session.permanent = True
+        app.permanent_session_lifetime = timedelta(minutes=15)
+        q.queue.clear()
+        print(q.queue)
+        del original_key, email_key
+        return redirect('/form')
+    else:
+        q.queue.clear()
+        del original_key, email_key
+        return "Key inválido🔑, por favor, revise nuevamente"
+
 
 @app.route('/logout-student')
 def logout_student():
