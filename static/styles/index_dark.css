@@ -3,7 +3,7 @@
 *{
 box-sizing: border-box;
 font-family: 'Poppins', sans-serif;
-font-weight: bold;
+
 }
 
 html{
@@ -13,7 +13,7 @@ height: 100%;
 body{ /*body's style*/
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
-background-color:#181c1c;
+background-color:#282c2c;
 height: 100%;
 margin: 0;
 }
@@ -35,7 +35,7 @@ span {
 
 .bg-chat{
     margin-top: -40px;
-    width: 1050px;
+    width: 1120px;
     height: 450px;
     display: flex;
     justify-content: center;
@@ -43,8 +43,8 @@ span {
 }
 
 .header-con{
-    color: #9578d3;
-    background-color:#181c18;
+    color: #f7e66b;
+    background-color:#282c2c;
     padding: 5px;
     display: flex;
     justify-content: center;
@@ -60,7 +60,7 @@ span {
 }
 
 .chat {
-    height:450px;
+    height:470px;
     width:inherit;
     display: flex;
     flex-direction: column;
@@ -73,7 +73,7 @@ input[type=text]{ /*Answers's textbox style*/
     margin-right: auto;
     border-radius: 10px;
     background-color: transparent;
-    border: #279112 2px solid;
+    border: #f7e66b 2px solid;
     width: 90%;
     color: #ffffff;
     font-weight: bold;
@@ -87,12 +87,15 @@ button#btns{ /*send button*/
     color: white;
     margin-left: auto;
     margin-top: -41px;
-    background-color: #279112;
-    color: black;
+    background-color: #f7e66b;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
     padding: 5px;
     border: none;
+    border-radius: 30px;
     width:100px;
     height: 40px;
+    cursor: pointer;
 }
 
 .messages{
@@ -107,7 +110,7 @@ button#btns{ /*send button*/
     padding: 15px;
     margin: 15px;
     border-radius: 10px;
-    border: #279112  2px solid;
+    border: #f7e66b  2px solid;
 }
 
 
@@ -124,7 +127,7 @@ button#btns{ /*send button*/
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #00ce7c;
+    background: #D397EE;
     border-radius: 8px;
 }
 
@@ -136,14 +139,14 @@ button#btns{ /*send button*/
 #bot {
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
 
 #user{
     display: flex;
     justify-content: flex-end;
     margin-top: 35px;
-    margin-bottom: 80px;
+    margin-bottom: 90px;
 }
 
 .bot {
@@ -153,7 +156,7 @@ button#btns{ /*send button*/
 
 .bot span{
     border-radius: 10px 10px 10px 0;
-    margin-left: 4px;
+    margin-left: 8px;
 }
 
 .avatar {
@@ -193,44 +196,14 @@ img{
     margin: center;
 }
 
-#information{
-    color: #9578d3;
-}
-
-#item1{
-    float:left;
-    align-items: center;
-    width:60px;
-}
-
-#logoudg{
-    width:50px;
-    margin-top:39px;
-    margin-left: 2px;
-}
-
-#item2{
-    float:left;
-    margin-top: 30px;
-    text-align: left;
-    width:60%;
-    font-size:11px;
-    font-display: center;
-}
-
 #item3{
     text-align: center;
     font-family: monospace;
     font-size:unset;
-    float: right;
+    float:none;
+    font-size: 30px;
     margin-bottom:16px;
     margin-top: 30px;
-}
-
-.icons{
-    float:left;
-    margin-right: 20px;
-    margin-top: -4px;
 }
 
 .buttonNV{ /*CLASS for the buttons navbar style*/
@@ -240,11 +213,7 @@ img{
     font-size: 12px;
     cursor: pointer;
     border: none;
-    color: #9578d3;
-}
-
-#buttonKW{
-    background-image:url(/static/images/icons/iconskey.png) no-repeat;
+    color: #D397EE;
 }
 
 

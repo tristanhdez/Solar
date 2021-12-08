@@ -101,13 +101,13 @@ button {
     height: 3rem;
     border: none;
     outline: none;
-    color: #fff;
+    color: rgb(255, 241, 241);
     font-size: 1.4rem;
     cursor: pointer;
     border: 2px solid transparent;
     border-radius: 2rem;
     border-color: white;
-    background: #65BA87;
+    background: #73C693;
     transition: all 0.3s ease;
 }
 

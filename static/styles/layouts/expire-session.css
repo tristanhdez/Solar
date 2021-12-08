@@ -12,7 +12,7 @@ body {
     height: 100vh;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('../images/wallpaper/wallpapers_light.jpg');
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(252, 201, 201, 0.7)), url('../../images/wallpaper/wallpapers_light.jpg');
     background-size: cover;
     background-position: center;
 }
@@ -49,8 +49,8 @@ body {
     left: 50%;
     transform: translateX(-50%);
     height: 0.8rem;
-    width: 20rem;
-    background: #68BB5C;
+    width: 13rem;
+    background: #65BA87;
     border-radius: 1rem;
     clip-path: polygon(0 0, 0% 100%, 100% 0);
 }
@@ -59,15 +59,45 @@ form {
     margin-top: 2.5rem;
 }
 
+.input-area {
+    margin-top: 2.2rem;
+    position: relative;
+    display: grid;
+    place-items: center;
+}
+
+.input-area input {
+    width: 90%;
+    height: 3rem;
+    color: #fff;
+    font-size: 1.2rem;
+    border: 2px solid #fff;
+    border-radius: 2rem;
+    outline: none;
+    background: transparent;
+    padding: 0 1.4rem;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.input-area input:focus {
+    width: 100%;
+}
+
+input::placeholder {
+    color: white;
+    opacity: 0.8;
+}
+
 .button-area {
     margin-top: 4rem;
-    width: 80%;
+    width: 100%;
     display: grid;
     place-items: center;
 }
 
 button {
-    width: 180%;
+    width: 40%;
     height: 3rem;
     border: none;
     outline: none;
@@ -76,15 +106,28 @@ button {
     cursor: pointer;
     border: 2px solid transparent;
     border-radius: 2rem;
-    background: #73C693;
+    border-color: white;
+    background: #65BA87;
     transition: all 0.3s ease;
 }
 
+button:hover {
+    width: 50%;
+    letter-spacing: 2px;
+    background: transparent;
+    border: 2px solid #fff;
+}
 
 .container2{
     position: fixed;
-    left: 10px;  
-    bottom: -15px;  
-    right: 15px;   
-    width: 100%;    
+    left: 10px;
+    bottom: -15px;
+    right: 15px;
+    width: 100%;
+}
+
+img{
+    height: 100px;
+    width:100px;
+    border-radius: 20px
 }

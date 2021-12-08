@@ -86,8 +86,8 @@ header .navigation a:hover{
 }
 
 .content .info-btn{
-  color: #fff;
-  background: #226A80;
+  color: rgb(0, 0, 0);
+  background: #ffee71;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 500;
@@ -99,7 +99,7 @@ header .navigation a:hover{
 }
 
 .content .info-btn:hover{
-  background: #0C4F60;
+  background: #f0f0f0;
 }
 
 .media-icons{
@@ -150,7 +150,7 @@ label{
   }
 
   label:hover{
-    color: #fff;
+    color: #f0f0f0;
   }
 
   label .close-btn{

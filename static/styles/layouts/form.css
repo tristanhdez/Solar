@@ -4,7 +4,7 @@
 
 
 body{
-    background: #1ABC9C;
+    background: #73C693;
     background-size: cover;
     background-position: center;
 }
@@ -47,7 +47,7 @@ a{
 
   /* Add a black background color to the top navigation */
 .topnav {
-    background-color: #2C3E50;
+    background-color: #6adf5a;
     overflow: hidden;
   }
 
@@ -63,14 +63,14 @@ a{
 
   /* Change the color of links on hover */
   .topnav a:hover {
-    background-color: rgb(245, 243, 243);
-    color: rgb(56, 47, 47);
+    background-color: #6af358;
+    color: rgb(255, 255, 255);
   }
 
   /* Add a color to the active/current link */
   .topnav a.active {
-    background-color: rgb(245, 243, 243);
-    color: rgb(56, 47, 47);
+    background-color: #6af358;
+    color: rgb(255, 255, 255);
   }
 
   .topnav input[type=text] {
@@ -86,17 +86,17 @@ a{
     height: 70px;
     border: none;
     outline: none;
-    color: rgb(245, 243, 243);
+    color: rgb(255, 255, 255);
     cursor: pointer;
     border: 9px solid transparent;
     border-radius: 3rem;
-    background: #1dc454;
+    background: #73C693;
     transition: all 0.3s ease;
 }
 
 .content-table thead tr {
-    background-color: #2C3E50;
-    color: rgb(245, 243, 243);
+    background-color: #63e252;
+    color: rgb(255, 255, 255);
     text-align: left;
     font-weight: bold;
 }
@@ -116,7 +116,7 @@ a{
 }
 
 .content-table tr{
-    background-color: rgb(245, 243, 243);
+    background-color: rgb(250, 250, 250);
 }
 
 .content-table tbody tr.active-row {
