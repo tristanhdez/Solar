@@ -7,50 +7,40 @@
     <link href= "{{ url_for('static',filename='styles/index_dark.css') }}" rel="stylesheet" type="text/css" id="theme_css">
     <link rel="icon" href="../static/images/character/solar_icon.png">
     <script src="{{ url_for('static', filename='src/jquery.min.js') }}"></script>
+    <script src="https://kit.fontawesome.com/4237cc4cee.js" crossorigin="anonymous"></script>
     <title>Solar</title>
 </head>
 <body>
 
 <div class="header-con">
     <img class="solar" src="../static/images/character/solar_icon_head.png" alt="solar">
-    <h2>● Solar está en línea</h2>
+    <h2> &nbsp;&nbsp;&nbsp;&nbsp; Solar está en línea</h2>
 </div>
 
 <div id="container" class="container">
 <div class="bg-chat">
     <div id="chat" class="chat">
         <div id="messages" class="messages"></div>
-            <input id="userQuestion" type="text" placeholder="Escribe un mensaje" style="border-top: none; border-left: none; border-right: none;"/>
+            <input id="userQuestion" type="text" placeholder="¡Hazme una pregunta!" style="border-top: none; border-left: none; border-right: none;"/>
             <button type="button" id="btns">Enviar</button>
     </div>
 </div>
 </div>
 <div class="container2">
-    <div class="items" id="item1">
-        <a href="http://www.cutonala.udg.mx/" target="_blank">
-            <img id="logoudg" src="../static/images/icons/udg-logo.png">
-        </a>
-    </div>
     <div class="items" id="item2">
-       <p id="information">
-            CENTRO UNIVERSITARIO DE TONALÁ -
-            Campus CUTonalá <br>
-            Av. Nuevo Periférico No. 555 Ejido San José Tateposco, C.P. 45425, Tonalá Jalisco, México<br>
-            Teléfono: +52 (33) 20 00 23 00 Ext. 64007 y 64044
-        </p>
-    </div>
+     </div>
    <div class="items" id="item3">
         <button type="button" class="buttonNV" id="buttonKW">
             <img class="icons" id="iconkw">
-            <a href="/keywords" style="text-decoration: none; color: #9578d3;" target="_blank" rel="noopener noreferrer">Palabras Clave</a>
+            <a href="/keywords" style="text-decoration: none; color: #f7e66b;" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-alt"></i>  Palabras Clave</a>
         </button>
         <button type="button" class="buttonNV" id="buttonKW">
             <img class="icons" id="iconkw">
-            <a href="/suggest" style="text-decoration: none; color: #9578d3;" target="_blank" rel="noopener noreferrer">¡Colabora una pregunta!</a>
+            <a href="/suggest" style="text-decoration: none; color: #f7e66b;" target="_blank" rel="noopener noreferrer"><i class="fas fa-lightbulb"></i>  ¡Colabora una pregunta!</a>
         </button>
         <button type="button" class="buttonNV" id="buttonID">
             <img  class="icons" id="icontc">
-            <a href="/logout-student" style="text-decoration: none; color: #9578d3;">Cerrar Sesión</a>
+            <a href="/logout-student" style="text-decoration: none; color: #f7e66b;"><i class="fas fa-sign-out-alt"></i>  Cerrar Sesión</a>
         </button>
     </div>
 </div>

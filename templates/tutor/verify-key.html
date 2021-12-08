@@ -1,0 +1,14 @@
+{% extends 'layout/login.html' %}
+{% block content %}
+<div class="title">
+    <h1>Verificación</h1>
+</div>
+    <form action="/request-code" method="post">
+        <div class="input-area">
+            <input type="text" required="required" name="key" placeholder="🔐 Escriba su key aquí">
+        </div>
+        <div class="button-area">
+        <button type="submit">Verificar</button>
+    </div>
+    </form>
+{% endblock content %}

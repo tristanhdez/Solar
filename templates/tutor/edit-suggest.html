@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validar sugerencia</title>
+</head>
+<body>
+    {% for value in data %}
+    <form action="/storing-suggest" method="post">
+        ID<input type="text" value="{{value[0]}}" name="id_email">
+        Nombre del estudiante <input type="text" value="{{value[1]}}" name="name">
+        Sugerencia <input type="text" value="{{value[2]}}" name="suggest">
+        Estado <input type="text" value="{{value[3]}}" name="status">
+        Formular Pregunta <input type="text" name="question">
+        Formular Respuesta <input type="text" name="answer">
+        Palabra Clave <input type="text" name="keyword">
+        Etapa <input type="text" name="stage">
+        <button type="submit">Validar</button>
+    </form>
+    {% endfor %}
+</body>
+</html>

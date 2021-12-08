@@ -1,36 +1,36 @@
 {% extends 'layout/form.html' %}
 {% block content %}
+
 <div class="topnav">
     <img src="../../static/images/character/solar_icon.png">
-    <a class="active" href="/new-tutor">Agregar Tutor</a>
+    <a class="active" href="/new-question">Agregar Pregunta</a>
     <a href="/tutor-and-student"><i class="fas fa-user-graduate"></i> Tutor y Tutorado</a>
     <a href="/tutors"><i class="fas fa-user-tie"></i> Tutores</a>
     <a href="/students"><i class="fas fa-graduation-cap"></i> Estudiantes</a>
     <a href="/form"><i class="far fa-question-circle"></i> Preguntas</a>
     <a href="/emails"><i class="fas fa-inbox"></i> Sugerencias</a>
     <a href="/logout-master"><i class="fas fa-sign-out-alt"></i> Log out</a>
-    <input type="text" placeholder="Buscar tutor">
+    <input type="text" placeholder="Search..">
 </div>
 <thead>
     <tr>
-        <th>Nombre</th>
-        <th style="width: 450px;">Correo</th>
-        <th>Carrera</th>
-        <th style="width: 100px;"></th>
-        <th style="width: 100px;">Acción</th>
+        <th style="width: 450px;">Nombre del Estudiante</th>
+        <th style="width: 450px;">Pregunta</th>
+        <th style="width: 200px;">Estado</th>
+        <th style="width: 150px;"> Validar pregunta</th>
     </tr>
 </thead>
 <tbody>
     {% for value in data %}
     <tr>
-        <td>{{value[1]}}</td>
+        <td style="text-align: center;">{{value[1]}}</td>
         <td style="text-align: center;">{{value[2]}}</td>
-        <td style="text-align: center; height: 60px;">{{value[4]}}</td>
-        <td></td>
+        <td style="text-align: center; height: 40px;">{{value[3]}}</td>
         <td style="text-align: center;">
-            <a href="/edit-tutor/{{value[0]}}/{{value[3]}}" class="btn"><i class="fas fa-pen"></i>  Editar</a>
+            <a href="/validate-suggest/{{value[0]}}" class="btn">Validar</a>
         </td>
     </tr>
     {% endfor %}
 </tbody>
+
 {% endblock content %}

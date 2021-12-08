@@ -12,20 +12,28 @@
     <div class="text">¡Sugiere una Pregunta aquí!</div>
     <form action="/sending-email" method="POST">
        <div class="form-row">
-          <div class="input-data textarea">
-             <textarea rows="8" cols="80" required name="body"></textarea>
-             <br />
-             <div class="underline"></div>
-             <label for="">Escribe tu pregunta aquí</label>
-             <br />
-             <div class="form-row submit-btn">
-                <div class="input-data">
-                   <div class="inner"></div>
-                   <input type="submit" value="Enviar">
-                </div>
-             </div>
-          </div>
+            <div class="input-data textarea">
+               <input type="text" name="name">
+               <div class="underline"></div>
+               <label for="">Escribe tu nombre 😊</label>
+               <br />
+            </div>
        </div>
+       <div class="form-row">
+         <div class="input-data textarea">
+            <textarea rows="8" cols="80" required name="body"></textarea>
+            <br />
+            <div class="underline"></div>
+            <label for="">Escribe tu pregunta aquí, {{ name | safe }} 📋</label>
+            <br />
+            <div class="form-row submit-btn">
+               <div class="input-data">
+                  <div class="inner"></div>
+                  <input type="submit" value="Enviar📧">
+               </div>
+            </div>
+         </div>
+    </div>
     </form>
  </div>
 </body>
