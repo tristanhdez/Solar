@@ -1,11 +1,13 @@
 from flask import Flask
-from flask import render_template, request, session
+from flask import render_template, Response, request, session
 from datetime import timedelta
 from flaskext.mysql import MySQL
 from werkzeug.utils import redirect
 from functools import wraps
 from flask_mail import Mail, Message
 import secrets
+import io
+import xlwt
 import re
 import queue
 import emoji
@@ -172,6 +174,142 @@ def error_400():
 def error_form():
     return render_template('handling/error/error-form.html')
 '''
+
+@app.route('/download/report/excel/tutor-and-student')
+def download_report():
+    sql = "SELECT tutores.id_tutor, tutores.nombre, tutores.correo,carreras.id_carrera, carreras.nombre AS carrera, alumnos.id_alumno, alumnos.nombre AS alumnos FROM alumnos INNER JOIN carreras ON alumnos.id_carrera = carreras.id_carrera INNER JOIN tutores ON alumnos.id_tutor = tutores.id_tutor";
+    connection= mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    data = cursor.fetchall()
+    connection.commit()
+   
+    #output in bytes
+    output = io.BytesIO()
+    #create WorkBook object
+    workbook = xlwt.Workbook()
+    #add a sheet
+    sh = workbook.add_sheet('Tutor and Student Report')
+
+    #add headers
+    sh.write(0, 0, 'Id del Tutor')
+    sh.write(0, 1, 'Nombre del tutor')
+    sh.write(0, 2, 'Correo de Tutor')
+    sh.write(0, 3, 'Id de la carrera')
+    sh.write(0, 4, 'Carrera')
+    sh.write(0, 5, 'Id del alumno')
+    sh.write(0, 6, 'Nombre de alumno')
+    idx = 0
+    for row in data:
+        sh.write(idx+1, 0, str(row[0]))
+        sh.write(idx+1, 1, row[1])
+        sh.write(idx+1, 2, row[2])
+        sh.write(idx+1, 3, str(row[3]))
+        sh.write(idx+1, 4, row[4])
+        sh.write(idx+1, 5, str(row[5]))
+        sh.write(idx+1, 6, row[6])
+        idx += 1
+
+    workbook.save(output)
+    output.seek(0)
+
+    return Response(output, mimetype="application/ms-excel", headers={"Content-Disposition":"attachment;filename=Tutor_&_Estudiante.xls"})
+
+
+@app.route('/download/report/excel/tutors')
+def download_report_tutors():
+    sql = "SELECT tutores.id_tutor, tutores.nombre, tutores.correo, carreras.id_carrera, carreras.nombre AS carreras FROM tutores INNER JOIN carreras ON tutores.id_carrera = carreras.id_carrera;";
+    connection= mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    data = cursor.fetchall() 
+    connection.commit()
+   
+    #output in bytes
+    output = io.BytesIO()
+    #create WorkBook object
+    workbook = xlwt.Workbook()
+    #add a sheet
+    sh = workbook.add_sheet('Tutors Report')
+
+    #add headers
+    sh.write(0, 0, 'Nombre')
+    sh.write(0, 1, 'Correo')
+    sh.write(0, 2, 'Carrera')
+    idx = 0
+    for row in data:
+        sh.write(idx+1, 0, row[1])
+        sh.write(idx+1, 1, row[2])
+        sh.write(idx+1, 2, row[4])
+        idx += 1
+    workbook.save(output)
+    output.seek(0)
+    return Response(output, mimetype="application/ms-excel", headers={"Content-Disposition":"attachment;filename=Tutores.xls"})
+
+@app.route('/download/report/excel/students')
+def download_report_students():
+    sql = "SELECT alumnos.id_alumno, alumnos.nombre, alumnos.correo, alumnos.codigo, carreras.id_carrera, carreras.nombre AS carreras FROM alumnos INNER JOIN carreras ON alumnos.id_carrera = carreras.id_carrera;";
+    connection= mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    data = cursor.fetchall() 
+    connection.commit()
+   
+    #output in bytes
+    output = io.BytesIO()
+    #create WorkBook object
+    workbook = xlwt.Workbook()
+    #add a sheet
+    sh = workbook.add_sheet('Students Report')
+
+    #add headers
+    sh.write(0, 0, 'Nombre')
+    sh.write(0, 1, 'Correo')
+    sh.write(0, 2, 'Código')
+    sh.write(0, 3, 'Carrera')
+    idx = 0
+    for row in data:
+        sh.write(idx+1, 0, row[1])
+        sh.write(idx+1, 1, row[2])
+        sh.write(idx+1, 2, row[3])
+        sh.write(idx+1, 3, row[5])
+        idx += 1
+    workbook.save(output)
+    output.seek(0)
+    return Response(output, mimetype="application/ms-excel", headers={"Content-Disposition":"attachment;filename=Estudiantes.xls"})
+
+
+@app.route('/download/report/excel/questions')
+def download_report_questions():
+    sql = "SELECT preguntas.id_pregunta, preguntas.pregunta, preguntas.respuesta, keyword, etapas.etapa FROM preguntas JOIN etapas ON preguntas.id_etapa = etapas.id_etapa";
+    connection= mysql.connect()
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    data = cursor.fetchall() 
+    connection.commit()
+    #output in bytes
+    output = io.BytesIO()
+    #create WorkBook object
+    workbook = xlwt.Workbook()
+    #add a sheet
+    sh = workbook.add_sheet('Questions Report Solar')
+    #add headers
+    sh.write(0, 0, 'Pregunta')
+    sh.write(0, 1, 'Respuesta')
+    sh.write(0, 2, 'Palabra Clave')
+    sh.write(0, 3, 'Etapa')
+    idx = 0
+    for row in data:
+        sh.write(idx+1, 0, row[1])
+        sh.write(idx+1, 1, row[2])
+        sh.write(idx+1, 2, row[3])
+        sh.write(idx+1, 3, row[4])
+        idx += 1
+    workbook.save(output)
+    output.seek(0)
+    return Response(output, mimetype="application/ms-excel", headers={"Content-Disposition":"attachment;filename=Preguntas_Solar.xls"})
+
+
 
 @app.route("/sending-email", methods=['POST','GET'])
 @login_required

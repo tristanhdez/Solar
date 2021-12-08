@@ -3,3 +3,5 @@ flask
 flask-mail
 Flask-MySQL
 jinja2
+emoji
+xlwt
