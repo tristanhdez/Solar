@@ -27,7 +27,7 @@ mysql.init_app(app)
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'soysolarelbot@gmail.com'
-app.config['MAIL_PASSWORD'] = 'jitgirosvbiigney'
+app.config['MAIL_PASSWORD'] = 'aupstfowqbwwgwgj'
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 q = queue.Queue()
@@ -135,6 +135,8 @@ def error_update():
 @app.route('/error-save')
 def error_save():
     return render_template('handling/error/error-save.html')
+
+
 
 #Handling Errors
 
@@ -345,7 +347,7 @@ def tutor_and_student():
         return render_template('tutor/tutor-and-student.html', data=data)
     except KeyError as e:
         print(e)
-        return render_template('/error-form')
+        return render_template('handling/error/error-form.html')
 
 @app.route('/emails')
 @admin_required
@@ -360,7 +362,7 @@ def emails():
         return render_template('tutor/emails.html', data=data)
     except KeyError as e:
         print(e)
-        return render_template('/error-form')
+        return render_template('handling/error/error-form.html')
 
 @app.route('/validate-suggest/<int:id>/')
 @admin_required
@@ -374,7 +376,7 @@ def validate_suggest(id):
         return render_template('tutor/edit-suggest.html', data = data)
     except KeyError as e:
         print(e)
-        return render_template('/error-form')
+        return render_template('handling/error/error-form.html')
 
 @app.route('/storing-suggest', methods=['POST'])
 @admin_required
@@ -390,12 +392,14 @@ def storing_suggest():
         status = request.form['status']
         connection = mysql.connect()
         cursor = connection.cursor()
-        if name and question and answer and suggest and status and id_email and request.method == 'POST':
+        if name and question and answer and suggest and status and id_email and stage and keyword and status and request.method == 'POST':
             sql = "INSERT INTO `preguntas` (`id_pregunta`, `pregunta`, `respuesta`, `keyword`, `id_etapa`) VALUES (NULL, %s, %s, %s, %s);"
             data = (question, answer, keyword, stage)
             cursor.execute(sql,data)
             connection.commit()
             connection.close()
+        else:
+            return render_template('handling/error/error-save.html')
         if id_email:
             connection = mysql.connect()
             cursor = connection.cursor()
@@ -406,10 +410,12 @@ def storing_suggest():
             cursor.execute(sql1,data)
             connection.commit()
             connection.close()
-        return "Ok"
+        else:
+            return render_template('handling/error/error-save.html')
+        return render_template('handling/sucess/created.html')
     except KeyError as e:
         print(e)
-        return render_template('/error-form')
+        return render_template('handling/error/error-save.html')
 
 
 @app.route('/tutors')
@@ -425,7 +431,7 @@ def tutors():
         return render_template('tutor/tutors.html', data=data)
     except KeyError as e:
         print(e)
-        return render_template('/error-form')
+        return render_template('handling/error/error-form.html')
 
 @app.route('/edit-tutor/<int:id_tutor>/<int:id_career>/')
 @admin_required
@@ -458,7 +464,7 @@ def edit_students(id_student,id_career):
         return render_template('tutor/edit-students.html', data=data)
     except KeyError as e:
         print(e)
-        return redirect('/error-form')
+        return redirect('handling/error/error-form.html')
     return redirect('/error-form')
 
 @app.route('/students')
@@ -474,7 +480,7 @@ def students():
         return render_template('tutor/students.html', data=data)
     except KeyError as e:
         print(e)
-        return redirect('/error-form')
+        return redirect('handling/error/error-form.html')
     return redirect('/error-form')
 
 @app.route('/edit-tutor-and-student.html')
@@ -491,7 +497,7 @@ def edit_tutor_and_student():
         return render_template('tutor/students.html', data=data)
     except KeyError as e:
         print(e)
-        return redirect('/error-form')
+        return redirect('handling/error/error-form.html')
     return redirect('/error-form')
 
 @app.route('/form')
@@ -508,10 +514,10 @@ def form():
             return render_template('tutor/form.html', data=data)
         except mysql.connector.Error as err:
             print(err)
-            return redirect('/error-form')
+            return redirect('handling/error/error-form.html')
     except KeyError as e:
         print(e)
-        return redirect('/error-form')
+        return redirect('handling/error/error-form.html')
 
 
 @app.route('/edit-question/<int:id>')
@@ -744,7 +750,7 @@ def request_code():
     else:
         q.queue.clear()
         del original_key, email_key
-        return "Key inválido🔑, por favor, revise nuevamente"
+        return render_template('handling/error/error-key.html')
 
 
 @app.route('/logout-student')

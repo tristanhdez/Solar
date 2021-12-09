@@ -12,7 +12,7 @@ body {
     height: 100vh;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(252, 201, 201, 0.7)), url('../../images/wallpaper/wallpapers_light.jpg');
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(252, 201, 201, 0.7)), url('../../images/wallpaper/wallpaper_dark.jpg');
     background-size: cover;
     background-position: center;
 }

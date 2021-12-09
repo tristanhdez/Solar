@@ -2,7 +2,6 @@
 {% block content %}
     <div class="topnav">
         <img src="../../static/images/character/solar_icon.png">
-        <a class="active" href="/new-tutor">Agregar Tutor</a>
         <a href="/tutor-and-student"><i class="fas fa-user-graduate"></i> Tutor y Tutorado</a>
         <a href="/tutors"><i class="fas fa-user-tie"></i> Tutores</a>
         <a href="/students"><i class="fas fa-graduation-cap"></i> Estudiantes</a>
@@ -27,7 +26,7 @@
                 <td style="text-align: center;">{{value[4]}}</td>
                 <td>{{value[6]}}</td>
                 <td style="text-align: center;">
-                    <a href="/edit-tutor/{{value[0]}}/{{value[3]}}/{{value[5]}}" class="btn"><i class="fas fa-pen"></i>  Editar</a>
+                    <a href="/tutor-and-student/{{value[0]}}/{{value[3]}}/{{value[5]}}/" class="btn"><i class="fas fa-pen"></i>  Editar</a>
                 </td>
             </tr>
             {% endfor %}
