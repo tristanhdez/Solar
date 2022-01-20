@@ -12,7 +12,8 @@ import re
 import queue
 import emoji
 import random
-
+import csv
+from io import TextIOWrapper
 app = Flask(__name__)
 #With os 
 #os.random(24)
@@ -119,6 +120,11 @@ def new_student():
 def new_tutor():
     return render_template('tutor/new-tutor.html')
 
+
+@app.route('/upload-questions')
+@admin_required
+def upload():
+    return render_template('tutor/upload-questions.html')
 
 @app.route('/updated')
 def updated():
@@ -311,7 +317,20 @@ def download_report_questions():
     output.seek(0)
     return Response(output, mimetype="application/ms-excel", headers={"Content-Disposition":"attachment;filename=Preguntas_Solar.xls"})
 
-
+@app.route('/importing/questions', methods=['GET', 'POST'])
+def importing_questions():
+    if request.method == 'POST':
+        csv_file = request.files['csvfile']
+        csv_file = TextIOWrapper(csv_file, encoding='utf-8')
+        csv_reader = csv.reader(csv_file)
+        connection = mysql.connect()
+        cursor = connection.cursor()
+        sql = "INSERT INTO `preguntas` (`id_pregunta`, `pregunta`, `respuesta`, `keyword`, `id_etapa`) VALUES (NULL, %s, %s, %s, %s);"
+        for row in csv_reader:
+            cursor.execute(sql,row)
+            connection.commit()
+        return "ok"
+    return "no"
 
 @app.route("/sending-email", methods=['POST','GET'])
 @login_required
@@ -320,19 +339,19 @@ def sending_email():
     name = request.form['name']
     if request.method == "POST" and body and name:
         msg = Message("¡Nueva Pregunta Sugerida!", sender= 'soysolarelbot@gmail.com',recipients= ["soysolarelbot@gmail.com"])
-        msg.body = "¡Hola, Administrador!\n¡Un alumno ha enviado una nueva sugerencia!\nNombre: "+name+"\nPregunta: "+request.form.get("body")+"\n¡Chécalo aquí!:"+"http://127.0.0.1:5000/form"
+        msg.body = "¡Hola, Administrador!\n¡Un alumno ha enviado una nueva sugerencia!\nNombre: "+name+"\nPregunta: "+request.form.get("body")+"\n¡Chécalo aquí!:"+"http://127.0.0.1:5000/emails"
         with app.open_resource("static/images/character/new-suggest.jpeg") as fp:
             msg.attach("new-suggest.jpeg", "image/jpeg", fp.read())
         mail.send(msg)
         connection = mysql.connect()
         cursor = connection.cursor()
-        sql = "INSERT INTO `sugerencias` (`id_email`, `name`, `message`) VALUES (NULL, %s, %s);"
+        sql = "INSERT INTO `sugerencias` (`id_email`, `name`, `message`, `status`) VALUES (NULL, %s, %s,'Pendiente');"
         data = (name,body)
         cursor.execute(sql,data)
         connection.commit()
-        return render_template("student/result-email.html", result="Success")
+        return render_template("student/result-email.html", result="¡Sugerencia Enviada!")
     else:
-       return render_template("student/result-email.html", result="Failure")
+       return render_template("student/result-email.html", result="Error, intenta nuevamente")
 
 @app.route('/tutor-and-student')
 @admin_required
@@ -613,6 +632,8 @@ def update_students():
 @app.route('/get')
 def get():
     userText = request.args.get('msg')
+    if userText == "hola":
+        return str("¡Hola, soy Solar!☀️🤖\n Estoy a tus órdenes😊")
     connection = mysql.connect()
     cursor=connection.cursor()
     row = cursor.execute("SELECT respuesta FROM preguntas WHERE keyword='"+userText+"'")
@@ -716,7 +737,7 @@ def verify_student():
             value = value.replace("(","").replace(")","").replace(","," ").replace("'","")
             session['studentCode'] = studentCode
             session.permanent = True
-            app.permanent_session_lifetime = timedelta(minutes=15)
+            app.permanent_session_lifetime = timedelta(minutes=120)
             return redirect('/solar')
     return render_template('handling/error/error-login-student.html')
 
@@ -742,7 +763,7 @@ def request_code():
     email_key = request.form['key']
     if original_key == email_key:
         session.permanent = True
-        app.permanent_session_lifetime = timedelta(minutes=15)
+        app.permanent_session_lifetime = timedelta(minutes=120)
         q.queue.clear()
         print(q.queue)
         del original_key, email_key

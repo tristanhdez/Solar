@@ -4,7 +4,7 @@
 
 
 body{
-    background: #73C693;
+    background: #282c2c;
     background-size: cover;
     background-position: center;
 }
@@ -95,7 +95,7 @@ a{
 }
 
 .content-table thead tr {
-    background-color: #63e252;
+    background-color: #5cbd4f;
     color: rgb(255, 255, 255);
     text-align: left;
     font-weight: bold;
