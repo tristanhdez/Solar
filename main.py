@@ -10,7 +10,6 @@ import io
 import xlwt
 import re
 import queue
-import emoji
 import random
 import csv
 from io import TextIOWrapper
