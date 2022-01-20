@@ -4,3 +4,4 @@ flask-mail
 Flask-MySQL
 jinja2
 xlwt
+flake8

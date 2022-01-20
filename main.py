@@ -5,6 +5,7 @@ from flaskext.mysql import MySQL
 from werkzeug.utils import redirect
 from functools import wraps
 from flask_mail import Mail, Message
+from io import TextIOWrapper
 import secrets
 import io
 import xlwt
@@ -12,7 +13,8 @@ import re
 import queue
 import random
 import csv
-from io import TextIOWrapper
+
+
 app = Flask(__name__)
 #With os 
 #os.random(24)
