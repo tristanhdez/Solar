@@ -5,3 +5,4 @@ Flask-MySQL
 jinja2
 xlwt
 flake8
+werkzeug
