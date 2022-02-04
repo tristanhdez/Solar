@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 
+
 *{
 box-sizing: border-box;
 font-family: 'Poppins', sans-serif;
@@ -42,6 +43,7 @@ span {
     align-items: center;
 }
 
+
 .header-con{
     color: #f7e66b;
     background-color:#282c2c;
@@ -50,8 +52,8 @@ span {
     justify-content: center;
     align-items: center;
     position: relative;
-    top: 5px;
-    height: 65px;
+    top: -10px;
+    height: 75px;
 }
 
 .solar{ /*image icon solar*/
@@ -86,17 +88,17 @@ input:focus{
 button#btns{ /*send button*/
     color: white;
     margin-left: auto;
-    margin-top: -41px;
+    margin-top: -25px;
     background-color: #f7e66b;
     font-weight: bold;
     color: rgb(0, 0, 0);
-    padding: 5px;
     border: none;
     border-radius: 30px;
-    width:100px;
+    width:80px;
     height: 40px;
     cursor: pointer;
 }
+
 
 .messages{
     display: flex;
@@ -159,7 +161,7 @@ button#btns{ /*send button*/
     margin-left: 8px;
 }
 
-.avatar {
+.avatar {/*icon solar*/
     height: 50px;
 }
 
@@ -217,15 +219,104 @@ img{
 }
 
 
-/* Mobile */
 
-@media only screen and (max-width: 980px) {
-.container {
-        flex-direction: column;
-        justify-content: flex-start;
+@media only screen and (max-width: 1200px) {
+    .bg-chat{
+        width: 800px;
+        height: 550px; 
     }
-    .chat {
-        width: 75vw;
-        margin: 10vw;
+    body{
+        font-size: 12px;
+    }
+    .edit{
+        font-size: 12px;
+    }
+    .send{
+        font-size: 12px;
+    }
+    button#btns{ /*send button*/
+        width:70px;
+        height: 35px;
+    }
+    .buttonNV{
+        font-size: 10px;
+    }
+    .solar{ /*image icon solar*/
+        width: 55px;
+        height: 45px;
+    }
+    .avatar {
+        height: 45px;
+    }
+    .fish{
+        height: 45px;
+        width: 45px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .bg-chat{
+        width: 450px;
+        height: 450px; 
+    }
+    body{
+        font-size: 10px;
+    }
+    .edit{
+        font-size: 10px;
+    }
+    .send{
+        font-size: 10px;
+    }
+    button#btns{ /*send button*/
+        width: 45px;
+        height: 30px;
+    }
+    .buttonNV{
+        font-size: 8px;
+    }
+    .solar{ /*image icon solar*/
+        width: 45px;
+        height: 35px;
+    }
+    .avatar {
+        height: 35px;
+    }
+    .fish{
+        height: 35px;
+        width: 35px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .bg-chat{
+        width: 340px;
+        height: 340px; 
+    } 
+    body{
+        font-size: 6px;
+    }
+    .edit{
+        font-size: 8px;
+    }
+    .send{
+        font-size: 8px;
+    }
+    button#btns{ /*send button*/
+        width: 35px;
+        height: 25px;
+    }
+    .buttonNV{
+        font-size: 6px;
+    } 
+    .solar{ /*image icon solar*/
+        width: 35px;
+        height: 25px;
+    }  
+    .avatar {
+        height: 25px;
+    }
+    .fish{
+        height: 25px;
+        width: 25px;
     }
 }
