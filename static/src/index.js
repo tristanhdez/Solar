@@ -8,7 +8,7 @@ function getResponse(data, normalData) {
     let userDiv = document.createElement("div");
     userDiv.id = "user";
     userDiv.className = "response";
-    userDiv.innerHTML = `<span>${normalData}</span><img src="../static/images/icons/user_icon_fish.png" alt="Icon" height="50px" width="50px">`;
+    userDiv.innerHTML = `<span>${normalData}</span><img src="../static/images/icons/user_icon_fish.png" class="fish" alt="Icon" height="50px" width="50px">`;
     messagesContainer.appendChild(userDiv);
     let botDiv = document.createElement("div");
     let botImg = document.createElement("img");
