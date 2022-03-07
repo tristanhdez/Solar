@@ -16,20 +16,19 @@ import csv
 
 
 app = Flask(__name__)
-#With os 
+#With os
 #os.random(24)
 app.config['SECRET_KEY'] = 'secret-key:)'
 mysql= MySQL()
 app.config['MYSQL_DATABASE_HOST']='localhost'
 app.config['MYSQL_DATABASE_USER']='root'
-app.config['MYSQL_DATABASE_PASSWORD']=''
+app.config['MYSQL_DATABASE_PASSWORD']='Password123*'
 app.config['MYSQL_DATABASE_DB']='tutorias'
 mysql.init_app(app)
-
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'soysolarelbot@gmail.com'
-app.config['MAIL_PASSWORD'] = 'aupstfowqbwwgwgj'
+app.config['MAIL_USERNAME'] = 'holasoysolarelbot@gmail.com'
+app.config['MAIL_PASSWORD'] = 'zyyywjwgqtbbtswm'
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 q = queue.Queue()
@@ -96,6 +95,10 @@ def keywords():
 @app.route('/')
 def home():
         return render_template('home.html')
+
+@app.route('/select')
+def select():
+        return render_template('select.html')
 
 @app.route('/suggest')
 @login_required
@@ -192,7 +195,7 @@ def download_report():
     cursor.execute(sql)
     data = cursor.fetchall()
     connection.commit()
-   
+
     #output in bytes
     output = io.BytesIO()
     #create WorkBook object
@@ -231,9 +234,9 @@ def download_report_tutors():
     connection= mysql.connect()
     cursor = connection.cursor()
     cursor.execute(sql)
-    data = cursor.fetchall() 
+    data = cursor.fetchall()
     connection.commit()
-   
+
     #output in bytes
     output = io.BytesIO()
     #create WorkBook object
@@ -261,9 +264,9 @@ def download_report_students():
     connection= mysql.connect()
     cursor = connection.cursor()
     cursor.execute(sql)
-    data = cursor.fetchall() 
+    data = cursor.fetchall()
     connection.commit()
-   
+
     #output in bytes
     output = io.BytesIO()
     #create WorkBook object
@@ -294,7 +297,7 @@ def download_report_questions():
     connection= mysql.connect()
     cursor = connection.cursor()
     cursor.execute(sql)
-    data = cursor.fetchall() 
+    data = cursor.fetchall()
     connection.commit()
     #output in bytes
     output = io.BytesIO()
@@ -339,7 +342,7 @@ def sending_email():
     body = request.form['body']
     name = request.form['name']
     if request.method == "POST" and body and name:
-        msg = Message("¡Nueva Pregunta Sugerida!", sender= 'soysolarelbot@gmail.com',recipients= ["soysolarelbot@gmail.com"])
+        msg = Message("¡Nueva Pregunta Sugerida!", sender= 'holasoysolarelbot@gmail.com',recipients= ["holasoysolarelbot@gmail.com"])
         msg.body = "¡Hola, Administrador!\n¡Un alumno ha enviado una nueva sugerencia!\nNombre: "+name+"\nPregunta: "+request.form.get("body")+"\n¡Chécalo aquí!:"+"http://127.0.0.1:5000/emails"
         with app.open_resource("static/images/character/new-suggest.jpeg") as fp:
             msg.attach("new-suggest.jpeg", "image/jpeg", fp.read())
@@ -390,7 +393,7 @@ def validate_suggest(id):
     try:
         connection = mysql.connect()
         cursor = connection.cursor()
-        cursor.execute("SELECT * FROM sugerencias WHERE id_email=%s",(id)) 
+        cursor.execute("SELECT * FROM sugerencias WHERE id_email=%s",(id))
         data = cursor.fetchall()
         connection.commit()
         return render_template('tutor/edit-suggest.html', data = data)
@@ -461,7 +464,7 @@ def edit_tutor(id_tutor,id_career):
             try:
                 connection = mysql.connect()
                 cursor = connection.cursor()
-                cursor.execute("SELECT tutores.id_tutor, tutores.nombre, tutores.correo, carreras.id_carrera, carreras.nombre AS carreras FROM tutores INNER JOIN carreras ON tutores.id_carrera = carreras.id_carrera WHERE tutores.id_tutor=%s AND tutores.id_carrera=%s",(id_tutor,id_career)) 
+                cursor.execute("SELECT tutores.id_tutor, tutores.nombre, tutores.correo, carreras.id_carrera, carreras.nombre AS carreras FROM tutores INNER JOIN carreras ON tutores.id_carrera = carreras.id_carrera WHERE tutores.id_tutor=%s AND tutores.id_carrera=%s",(id_tutor,id_career))
                 data = cursor.fetchall()
                 connection.commit()
                 return render_template('tutor/edit-tutor.html', data=data)
@@ -475,7 +478,7 @@ def edit_tutor(id_tutor,id_career):
 @app.route('/edit-students/<int:id_student>/<int:id_career>/')
 @admin_required
 def edit_students(id_student,id_career):
-    try: 
+    try:
         connection = mysql.connect()
         cursor = connection.cursor()
         cursor.execute("SELECT alumnos.id_alumno, alumnos.nombre, alumnos.correo, alumnos.codigo, carreras.id_carrera, carreras.nombre AS carreras FROM alumnos INNER JOIN carreras ON alumnos.id_carrera = carreras.id_carrera WHERE alumnos.id_alumno =%s AND alumnos.id_carrera = %s;",(id_student,id_career))
@@ -490,7 +493,7 @@ def edit_students(id_student,id_career):
 @app.route('/students')
 @admin_required
 def students():
-    try: 
+    try:
         sql = "SELECT alumnos.id_alumno, alumnos.nombre, alumnos.correo, alumnos.codigo, carreras.id_carrera, carreras.nombre AS carreras FROM alumnos INNER JOIN carreras ON alumnos.id_carrera = carreras.id_carrera;";
         connection= mysql.connect()
         cursor = connection.cursor()
@@ -506,7 +509,7 @@ def students():
 @app.route('/edit-tutor-and-student.html')
 @admin_required
 def edit_tutor_and_student():
-    try: 
+    try:
         sql = "SELECT tutores.id_tutor, tutores.nombre, tutores.correo,carreras.id_carrera, carreras.nombre AS carrera, alumnos.id_alumno, alumnos.nombre AS alumnos FROM alumnos INNER JOIN carreras ON alumnos.id_carrera = carreras.id_carrera INNER JOIN tutores ON alumnos.id_tutor = tutores.id_tutor";
         connection= mysql.connect()
         cursor = connection.cursor()
@@ -546,7 +549,7 @@ def edit_question(id):
     try:
         connection = mysql.connect()
         cursor = connection.cursor()
-        cursor.execute("SELECT * FROM preguntas WHERE id_pregunta=%s",(id)) 
+        cursor.execute("SELECT * FROM preguntas WHERE id_pregunta=%s",(id))
         data = cursor.fetchall()
         connection.commit()
         return render_template('tutor/edit-question.html', data = data)
@@ -750,7 +753,7 @@ def verify_master():
         key = secrets.token_urlsafe(5)
         q.put(key)
         print(q.queue)
-        msg = Message("🔑¡Llave Secreta!🔑", sender= 'soysolarelbot@gmail.com',recipients= ["soysolarelbot@gmail.com"])
+        msg = Message("🔑¡Llave Secreta!🔑", sender= 'holasoysolarelbot@gmail.com',recipients= ["holasoysolarelbot@gmail.com"])
         msg.body = "¡Hola, Administrador!👋\n ¡Para poder proceder necesitamos la palabra clave!\n"+"Key:"+key+"\n¡Chécalo!👀"
         mail.send(msg)
         return render_template('tutor/verify-key.html')

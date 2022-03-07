@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+  <title>¿Quién eres?</title>
+  <link href="{{ url_for('static',filename='styles/select.css') }}" rel="stylesheet" type="text/css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap"
+    rel="stylesheet">
+</head>
+<body>
+  <div class="header">
+    <h1 style="font-weight: 200;">¿Quién eres?</h1>
+  </div>
+  <div class="row1-container">
+    <div class="box box-down cyan">
+        <a href="#" style="text-decoration: none;"><h2>Invitado</h2></a>
+        <p>No formo parte de CUTONALÁ pero me gustaría tener información</p>
+        <img src="https://assets.codepen.io/2301174/icon-supervisor.svg" alt="">
+        </div>
+    <div class="box red">
+      <a href="/login" style="text-decoration: none;"><h2>Estudiante</h2></a>
+      <p>Formo parte de CUTONALÁ</p>
+      <img src="https://assets.codepen.io/2301174/icon-team-builder.svg" alt="">
+    </div>
+
+    <div class="box box-down blue">
+        <a href="#" style="text-decoration: none;"><h2>Profesor</h2></a>
+      <p>Soy docente de CUTONALÁ</p>
+      <img src="https://assets.codepen.io/2301174/icon-calculator.svg" alt="">
+    </div>
+  </div>
+</body>
+
+</html>
