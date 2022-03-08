@@ -638,6 +638,19 @@ def get():
     userText = request.args.get('msg')
     if userText == "hola":
         return str("¡Hola, soy Solar!☀️🤖\n Estoy a tus órdenes😊")
+    if re.match("^[0-9]{9}$", userText):
+        connection = mysql.connect()
+        cursor=connection.cursor()
+        row = cursor.execute("SELECT tutores.nombre from tutores join alumnos on tutores.id_tutor = alumnos.id_tutor where alumnos.codigo ='"+userText+"'")
+        connection.commit()
+        data = cursor.fetchall()
+        if row == 1:
+            result = " ".join(str(x) for x in data)
+            result = result.replace("(","").replace(")","").replace("'","").replace("\\n"," ").replace("\\r"," ").replace("\\"," ")
+            result = result.replace(","," ")
+            return "Claro, tu tutor/tutora es: "+result
+        else:
+            return "No encontramos tu tutor, intenta nuevamente"
     connection = mysql.connect()
     cursor=connection.cursor()
     row = cursor.execute("SELECT respuesta FROM preguntas WHERE keyword='"+userText+"'")
